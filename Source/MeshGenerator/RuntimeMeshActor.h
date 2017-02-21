@@ -12,6 +12,9 @@ class MESHGENERATOR_API ARuntimeMeshActor : public AActor
 	GENERATED_BODY()
 	
 public:	
+	UPROPERTY(EditAnywhere)
+	URuntimeMeshComponent* RuntimeMesh;
+
 	// Sets default values for this actor's properties
 	ARuntimeMeshActor();
 
@@ -21,6 +24,4 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-	
-	
 };
