@@ -43,7 +43,6 @@ ACustomActor::ACustomActor()
 	tangents.Add(FProcMeshTangent(0, 1, 0));
 
 	mesh->CreateMeshSection_LinearColor(1, vertices, Triangles, normals, UV0, vertexColors, tangents, false);
-	mesh->
 }
 
 // Called when the game starts or when spawned
