@@ -8,10 +8,6 @@
 // Sets default values
 ARuntimeMeshActor::ARuntimeMeshActor()
 {
-	MeshImporter import("c:/users/tobias/mesh/stabilo.ply");
-	std::vector<uint32_t> faces =  import.GetFaces();
-
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	RuntimeMesh = CreateDefaultSubobject<URuntimeMeshComponent>(TEXT("Runtime Mesh"));
@@ -23,6 +19,12 @@ ARuntimeMeshActor::ARuntimeMeshActor()
 	TArray<FColor> VertexColors;
 	TArray<FVector2D> TextureCoordinates;
 	TArray<int32> Triangles;
+
+	MeshImporter import("c:/users/tobias/mesh/stabilo.ply");
+	std::vector<float> vertices =  import.GetVertices();
+	std::vector<float> normals =  import.GetNormals();
+	std::vector<uint32_t> faces =  import.GetFaces();
+	std::vector<uint8_t> colors =  import.GetColors();
 
 	// First vertex
 	Vertices.Add(FVector(0, 100, 0));

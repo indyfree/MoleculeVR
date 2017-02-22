@@ -9,6 +9,7 @@ public:
 	~MeshImporter();
 
 	std::vector<float> GetVertices();
+	std::vector<float> GetNormals();
 	std::vector<uint8_t> GetColors();
 	std::vector<uint32_t> GetFaces();
 

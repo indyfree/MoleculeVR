@@ -20,6 +20,11 @@ std::vector<float> MeshImporter::GetVertices()
 	return vertices;
 }
 
+std::vector<float> MeshImporter::GetNormals()
+{
+	return normals;
+}
+
 std::vector<uint8_t> MeshImporter::GetColors()
 {
 	return colors;
