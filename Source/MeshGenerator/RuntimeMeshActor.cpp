@@ -9,6 +9,7 @@
 ARuntimeMeshActor::ARuntimeMeshActor()
 {
 	MeshImporter import("c:/users/tobias/mesh/stabilo.ply");
+	std::vector<uint32_t> faces =  import.GetFaces();
 
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;

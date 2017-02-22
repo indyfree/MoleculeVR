@@ -10,10 +10,10 @@ public:
 
 	std::vector<float> GetVertices();
 	std::vector<uint8_t> GetColors();
-	std::vector<uint32_t> getFaces();
+	std::vector<uint32_t> GetFaces();
 
 private:
-	tinyply::PlyFile ReadFile(const std::string &filename);
+	void ReadFile(const std::string &filename);
 
 	std::vector<float> vertices;
 	std::vector<float> normals;
