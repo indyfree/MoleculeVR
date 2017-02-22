@@ -7,4 +7,6 @@ class MESHGENERATOR_API MeshImporter
 public:
 	MeshImporter();
 	~MeshImporter();
+
+	tinyply::PlyFile ReadFile(const std::string &filename);
 };
