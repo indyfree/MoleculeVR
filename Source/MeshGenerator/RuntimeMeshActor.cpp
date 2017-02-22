@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MeshGenerator.h"
-#include "MeshImporter.h"
 #include "RuntimeMeshActor.h"
 
 
@@ -20,14 +19,8 @@ ARuntimeMeshActor::ARuntimeMeshActor()
 	TArray<FVector2D> TextureCoordinates;
 	TArray<int32> Triangles;
 
-	MeshImporter import("c:/users/tobias/mesh/stabilo.ply");
-	std::vector<float> vertices =  import.GetVertices();
-	std::vector<float> normals =  import.GetNormals();
-	std::vector<uint32_t> faces =  import.GetFaces();
-	std::vector<uint8_t> colors =  import.GetColors();
-
 	// First vertex
-	Vertices.Add(FVector(0, 100, 0));
+	Vertices.Add(FVector(0, 100, 100));
 	Normals.Add(FVector(0, 0, 1));
 	Tangents.Add(FRuntimeMeshTangent(0, -1, 0));
 	VertexColors.Add(FColor::White);
