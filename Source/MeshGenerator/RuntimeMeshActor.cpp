@@ -8,7 +8,7 @@
 // Sets default values
 ARuntimeMeshActor::ARuntimeMeshActor()
 {
-	MeshImporter import;
+	MeshImporter import("c:/users/tobias/mesh/stabilo.ply");
 
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
