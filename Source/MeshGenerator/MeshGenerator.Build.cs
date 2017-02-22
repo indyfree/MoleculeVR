@@ -1,23 +1,31 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+using System.IO;
+using System;
 using UnrealBuildTool;
 
 public class MeshGenerator : ModuleRules
 {
-	public MeshGenerator(TargetInfo Target)
+    private string ModulePath
+    {
+        get { return ModuleDirectory; }
+    }
+
+    private string ThirdPartyPath
+    {
+        get { return Path.GetFullPath(Path.Combine(ModulePath, "../../ThirdParty/")); }
+    }
+
+    public MeshGenerator(TargetInfo Target)
 	{
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "ProceduralMeshComponent" });
 
         PublicDependencyModuleNames.AddRange(new string[] { "ShaderCore", "RenderCore", "RHI",  "RuntimeMeshComponent" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] {  });
+        PrivateDependencyModuleNames.AddRange(new string[] {  });
 
-		// Uncomment if you are using Slate UI
-		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
-		
-		// Uncomment if you are using online features
-		// PrivateDependencyModuleNames.Add("OnlineSubsystem");
+        PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "tinyply", "Libraries", "tinyply.lib"));
+        PublicIncludePaths.Add(Path.Combine(ThirdPartyPath, "tinyply", "Includes"));
 
-		// To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
-	}
+    }
 }
