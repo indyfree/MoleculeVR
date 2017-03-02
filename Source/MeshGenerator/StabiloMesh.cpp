@@ -5,6 +5,9 @@
 #include "StabiloMesh.h"
 
 
+UPROPERTY(EditAnywhere)
+UMaterialInterface* Material;
+
 // Sets default values
 AStabiloMesh::AStabiloMesh()
 {	
@@ -33,49 +36,26 @@ AStabiloMesh::AStabiloMesh()
 
 	for (int i = 0; i < vertices.size() - 3; i += 3) {
 		Vertices.Add(FVector(vertices[i], vertices[i + 1], vertices[i + 2]));
-		VertexColors.Add(FColor(colors[i], colors[i+1], colors[i+2], 1));
+		VertexColors.Add(FColor(colors[i], colors[i+1], colors[i+2]));
 	}
 
 	for (int i = 0; i < faces.size(); ++i) {
 		Triangles.Add(faces[i]);
 	}
 
-	//// First vertex
-	//Vertices.Add(FVector(0, 100, 100));
-	//Normals.Add(FVector(0, 0, 1));
-	//Tangents.Add(FRuntimeMeshTangent(0, -1, 0));
-	//VertexColors.Add(FColor::White);
-	//TextureCoordinates.Add(FVector2D(0, 0));
 
-	//// Second vertex
-	//Vertices.Add(FVector(100, 100, 0));
-	//Normals.Add(FVector(0, 0, 1));
-	//Tangents.Add(FRuntimeMeshTangent(0, -1, 0));
-	//VertexColors.Add(FColor::White);
-	//TextureCoordinates.Add(FVector2D(0, 1));
+	static ConstructorHelpers::FObjectFinder<UMaterial> Material(TEXT("Material'/Game/VirtualReality/Materials/VertexColor.VertexColor'"));
 
-	//// Third vertex
-	//Vertices.Add(FVector(100, 0, 0));
-	//Normals.Add(FVector(0, 0, 1));
-	//Tangents.Add(FRuntimeMeshTangent(0, -1, 0));
-	//VertexColors.Add(FColor::White);
-	//TextureCoordinates.Add(FVector2D(1, 1));
-
-	//// Fourth vertex
-	//Vertices.Add(FVector(0, 0, 0));
-	//Normals.Add(FVector(0, 0, 1));
-	//Tangents.Add(FRuntimeMeshTangent(0, -1, 0));
-	//VertexColors.Add(FColor::White);
-	//TextureCoordinates.Add(FVector2D(1, 0));
-
-	//Triangles.Add(0);
-	//Triangles.Add(1);
-	//Triangles.Add(2);
-	//Triangles.Add(0);
-	//Triangles.Add(2);
-	//Triangles.Add(3);
+	UMaterial* vertex_color_material = NULL;
+	if (Material.Object != NULL)
+	{
+		vertex_color_material = (UMaterial*)Material.Object;
+	}
+	// Maybe later use for dynamic materials
+	//UMaterialInstanceDynamic* dynamic_vertex_color_material = UMaterialInstanceDynamic::Create(vertex_color_material, NULL);
 
 	RuntimeMesh->CreateMeshSection(0, Vertices, Triangles, Normals, TextureCoordinates, VertexColors, Tangents);
+	RuntimeMesh->SetMaterial(0, vertex_color_material);
 }
 
 // Called when the game starts or when spawned
