@@ -2,19 +2,15 @@
 
 #pragma once
 
-#include "GameFramework/Actor.h"
-#include "RuntimeMeshComponent.h"
+#include "MeshActorBase.h"
 #include "StabiloMesh.generated.h"
 
 UCLASS()
-class MESHGENERATOR_API AStabiloMesh : public AActor
+class MESHGENERATOR_API AStabiloMesh : public AMeshActorBase
 {
 	GENERATED_BODY()
 	
 public:	
-	UPROPERTY(EditAnywhere)
-	URuntimeMeshComponent* RuntimeMesh;
-
 	// Sets default values for this actor's properties
 	AStabiloMesh();
 
