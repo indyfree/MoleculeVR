@@ -2,24 +2,28 @@
 
 #include "tinyply.h"
 
+using namespace std;
+
 class MESHGENERATOR_API MeshImporter
 {
 public:
-	MeshImporter(const std::string & filename);
+	MeshImporter(const string & filename);
 	~MeshImporter();
 
-	std::vector<float> GetVertices();
-	std::vector<float> GetNormals();
-	std::vector<uint8_t> GetColors();
-	std::vector<uint32_t> GetFaces();
+	vector<float> GetVertices();
+	vector<float> GetNormals();
+	vector<uint8_t> GetColors();
+	vector<uint32_t> GetFaces();
 
 private:
-	void ReadFile(const std::string &filename);
+	void ReadFile(const string &filename);
 
-	std::vector<float> vertices;
-	std::vector<float> normals;
-	std::vector<uint8_t> colors;
+	vector<float> vertices;
+	vector<float> normals;
+	vector<uint8_t> colors;
 
-	std::vector<uint32_t> faces;
-	std::vector<float> uvCoords;
+	vector<uint32_t> faces;
+	vector<float> uvCoords;
+
+	vector<float> calculateNormals();
 };

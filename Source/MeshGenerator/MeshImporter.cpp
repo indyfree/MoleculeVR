@@ -5,41 +5,41 @@
 #include <sstream>
 #include <fstream>
 
-MeshImporter::MeshImporter(const std::string & filename)
+MeshImporter::MeshImporter(const string & filename)
 {
 	ReadFile(filename);
-
+	calculateNormals();
 }
 
 MeshImporter::~MeshImporter()
 {
 }
 
-std::vector<float> MeshImporter::GetVertices()
+vector<float> MeshImporter::calculateNormals()
 {
-	return vertices;
+	// 1. calculate normals of faces
+	vector<float> face_normals(faces.size());
+	// Why not < faces.size()-3??
+	for (int i = 0; i < faces.size() - 2; i += 3) {
+		int u = faces[i]; // Position of the first value of the first vertex of a triangle
+		int v = faces[i + 1]; // Position of the first value of the second vertex of a triangle 
+
+		// Cross product of the first two vertexes of a triangle
+		face_normals[i] = (vertices[u + 1] * vertices[v + 2]) - (vertices[u + 2] * vertices[v + 1]);
+		face_normals[i + 1] = (vertices[u + 2] * vertices[v]) - (vertices[u] * vertices[v + 2]);
+		face_normals[i + 2] = (vertices[u] * vertices[v + 1]) - (vertices[u + 1] * vertices[v]);
+	}
+	// 2. normalize normals of faces
+	// 3. add up normals of vertices from contained faces
+	// 3. normalize normals of vertices
+	return vector<float>();
 }
 
-std::vector<float> MeshImporter::GetNormals()
-{
-	return normals;
-}
-
-std::vector<uint8_t> MeshImporter::GetColors()
-{
-	return colors;
-}
-
-std::vector<uint32_t> MeshImporter::GetFaces()
-{
-	return faces;
-}
-
-void MeshImporter::ReadFile(const std::string & filename)
+void MeshImporter::ReadFile(const string & filename)
 {
 	try
 	{
-		std::ifstream ss(filename, std::ios::binary);
+		ifstream ss(filename, ios::binary);
 		tinyply::PlyFile file(ss);
 
 		// The count returns the number of instances of the property group. The vectors
@@ -59,8 +59,29 @@ void MeshImporter::ReadFile(const std::string & filename)
 		// Now populate the vectors...
 		file.read(ss);
 	}
-	catch (const std::exception & e)
+	catch (const exception & e)
 	{
-		std::cerr << "Caught exception: " << e.what() << std::endl;
+		cerr << "Caught exception: " << e.what() << endl;
 	}
 }
+
+vector<float> MeshImporter::GetVertices()
+{
+	return vertices;
+}
+
+vector<float> MeshImporter::GetNormals()
+{
+	return normals;
+}
+
+vector<uint8_t> MeshImporter::GetColors()
+{
+	return colors;
+}
+
+vector<uint32_t> MeshImporter::GetFaces()
+{
+	return faces;
+}
+
