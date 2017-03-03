@@ -18,7 +18,7 @@ void AMeshActorBase::CreateMesh(const std::string & filename)
 {
 	ImportMesh(filename);
 	SetVertexColorMaterial();
-	RuntimeMesh->CreateMeshSection(0, Vertices, Triangles, Normals, TextureCoordinates, VertexColors, Tangents);
+	RuntimeMesh->CreateMeshSection(0, Vertices, Triangles);
 }
 
 // Called when the game starts or when spawned
@@ -41,13 +41,17 @@ void AMeshActorBase::ImportMesh(const std::string & filename)
 	MeshImporter import(filename);
 	//TODO dont copy -> pointer or refs
 	std::vector<float> vertices =  import.GetVertices();
+	//TODO if normals exist
 	std::vector<float> normals =  import.GetNormals();
 	std::vector<uint32_t> faces =  import.GetFaces();
 	std::vector<uint8_t> colors =  import.GetColors();
 
 	for (int i = 0; i < vertices.size() - 3; i += 3) {
-		Vertices.Add(FVector(vertices[i], vertices[i + 1], vertices[i + 2]));
-		VertexColors.Add(FColor(colors[i], colors[i+1], colors[i+2]));
+		FVector position = FVector(vertices[i], vertices[i + 1], vertices[i + 2]);
+		FColor color = FColor(colors[i], colors[i + 1], colors[i + 2]);
+
+		FRuntimeMeshVertexSimple packed_vertex = FRuntimeMeshVertexSimple(position, color);
+		Vertices.Add(packed_vertex);
 	}
 
 	for (int i = 0; i < faces.size(); ++i) {

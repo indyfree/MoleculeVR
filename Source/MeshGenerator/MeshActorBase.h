@@ -35,11 +35,6 @@ private:
 	// Set Material to VertexColor to display vertex colors
 	void SetVertexColorMaterial();
 
-	TArray<FVector> Vertices;
-	TArray<FVector> Normals;
-	TArray<FRuntimeMeshTangent> Tangents;
-	TArray<FColor> VertexColors;
-	TArray<FVector2D> TextureCoordinates;
+	TArray<FRuntimeMeshVertexSimple> Vertices;
 	TArray<int32> Triangles;
-
 };
