@@ -46,16 +46,21 @@ void AMeshActorBase::ImportMesh(const std::string & filename)
 	std::vector<uint32_t> faces =  import.GetFaces();
 	std::vector<uint8_t> colors =  import.GetColors();
 
+	FRuntimeMeshTangent tangent = FRuntimeMeshTangent(1, 0, 0);
+	
 	for (int i = 0; i <= vertices.size() - 3; i += 3) {
 		FVector position = FVector(vertices[i], vertices[i + 1], vertices[i + 2]);
+		FVector normal = FVector(normals[i], normals[i + 1], normals[i + 2]);
 		FColor color = FColor(colors[i], colors[i + 1], colors[i + 2]);
 
-		FRuntimeMeshVertexSimple packed_vertex = FRuntimeMeshVertexSimple(position, color);
+		FRuntimeMeshVertexSimple packed_vertex = FRuntimeMeshVertexSimple(position, normal, tangent, color);
 		Vertices.Add(packed_vertex);
 	}
 
-	for (int i = 0; i < faces.size(); ++i) {
+	for (int i = 0; i <= faces.size(); i += 3) {
 		Triangles.Add(faces[i]);
+		Triangles.Add(faces[i + 2]);
+		Triangles.Add(faces[i + 1]);
 	}
 }
 void AMeshActorBase::SetVertexColorMaterial()
