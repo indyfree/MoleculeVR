@@ -18,12 +18,11 @@ public:
 private:
 	void ReadFile(const string &filename);
 
-	vector<float> vertices;
-	vector<float> normals;
-	vector<uint8_t> colors;
+	vector<float> vertices_;
+	vector<float> normals_;
+	vector<uint8_t> colors_;
+	vector<uint32_t> faces_;
+	vector<float> uvCoords_;
 
-	vector<uint32_t> faces;
-	vector<float> uvCoords;
-
-	vector<float> calculateNormals();
+	vector<float> CalculateNormals(vector<uint32_t> faces, vector<float> vertices);
 };

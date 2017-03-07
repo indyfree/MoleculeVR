@@ -8,19 +8,18 @@
 MeshImporter::MeshImporter(const string & filename)
 {
 	ReadFile(filename);
-	calculateNormals();
+	CalculateNormals(faces_, vertices_);
 }
 
 MeshImporter::~MeshImporter()
 {
 }
 
-vector<float> MeshImporter::calculateNormals()
+vector<float> MeshImporter::CalculateNormals(vector<uint32_t> faces, vector<float> vertices)
 {
 	// 1. calculate normals of faces
 	vector<float> face_normals(faces.size());
-	// Why not < faces.size()-3??
-	for (int i = 0; i < faces.size() - 2; i += 3) {
+	for (int i = 0; i <= faces.size() - 3; i += 3) {
 		int u = faces[i]; // Position of the first value of the first vertex of a triangle
 		int v = faces[i + 1]; // Position of the first value of the second vertex of a triangle 
 
@@ -45,16 +44,16 @@ void MeshImporter::ReadFile(const string & filename)
 		// The count returns the number of instances of the property group. The vectors
 		// above will be resized into a multiple of the property group size as
 		// they are "flattened"... i.e. verts = {x, y, z, x, y, z, ...}
-		file.request_properties_from_element("vertex", { "x", "y", "z" }, vertices);
-		file.request_properties_from_element("vertex", { "nx", "ny", "nz" }, normals);
-		file.request_properties_from_element("vertex", { "red", "green", "blue", "alpha" }, colors);
+		file.request_properties_from_element("vertex", { "x", "y", "z" }, vertices_);
+		file.request_properties_from_element("vertex", { "nx", "ny", "nz" }, normals_);
+		file.request_properties_from_element("vertex", { "red", "green", "blue", "alpha" }, colors_);
 
 		// For properties that are list types, it is possibly to specify the expected count (ideal if a
 		// consumer of this library knows the layout of their format a-priori). Otherwise, tinyply
 		// defers allocation of memory until the first instance of the property has been found
 		// as implemented in file.read(ss)
-		file.request_properties_from_element("face", { "vertex_indices" }, faces, 3);
-		file.request_properties_from_element("face", { "texcoord" }, uvCoords, 6);
+		file.request_properties_from_element("face", { "vertex_indices" }, faces_, 3);
+		file.request_properties_from_element("face", { "texcoord" }, uvCoords_, 6);
 
 		// Now populate the vectors...
 		file.read(ss);
@@ -67,21 +66,21 @@ void MeshImporter::ReadFile(const string & filename)
 
 vector<float> MeshImporter::GetVertices()
 {
-	return vertices;
+	return vertices_;
 }
 
 vector<float> MeshImporter::GetNormals()
 {
-	return normals;
+	return normals_;
 }
 
 vector<uint8_t> MeshImporter::GetColors()
 {
-	return colors;
+	return colors_;
 }
 
 vector<uint32_t> MeshImporter::GetFaces()
 {
-	return faces;
+	return faces_;
 }
 
