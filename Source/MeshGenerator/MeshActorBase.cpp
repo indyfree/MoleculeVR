@@ -46,7 +46,7 @@ void AMeshActorBase::ImportMesh(const std::string & filename)
 	std::vector<uint32_t> faces =  import.GetFaces();
 	std::vector<uint8_t> colors =  import.GetColors();
 
-	for (int i = 0; i < vertices.size() - 3; i += 3) {
+	for (int i = 0; i <= vertices.size() - 3; i += 3) {
 		FVector position = FVector(vertices[i], vertices[i + 1], vertices[i + 2]);
 		FColor color = FColor(colors[i], colors[i + 1], colors[i + 2]);
 
