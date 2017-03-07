@@ -24,5 +24,7 @@ private:
 	vector<uint32_t> faces_;
 	vector<float> uvCoords_;
 
-	vector<float> CalculateNormals(vector<uint32_t> faces, vector<float> vertices);
+	vector<float> CalculateVertexNormals(vector<uint32_t> faces, vector<float> vertices);
+	void NormalizeVectors(vector<float> &vectors);
+	void CalculateNormalsTest();
 };
