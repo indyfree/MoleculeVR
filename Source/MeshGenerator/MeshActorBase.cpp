@@ -39,7 +39,6 @@ void AMeshActorBase::ImportMesh(const string & filename)
 {
 
 	MeshImporter import(filename);
-	//TODO dont copy -> pointer or refs
 	vector<float> vertices =  import.GetVertices();
 	vector<uint32_t> faces =  import.GetFaces();
 	vector<uint8_t> colors =  import.GetColors();
