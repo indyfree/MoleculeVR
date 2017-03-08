@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "tinyply.h"
+#include "vector.h"
 
 using namespace std;
 
@@ -23,8 +24,4 @@ private:
 	vector<uint8_t> colors_;
 	vector<uint32_t> faces_;
 	vector<float> uvCoords_;
-
-	vector<float> CalculateVertexNormals(vector<uint32_t> faces, vector<float> vertices);
-	void NormalizeVectors(vector<float> &vectors);
-	void CalculateNormalsTest();
 };
