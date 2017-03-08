@@ -44,22 +44,22 @@ void MeshImporter::ReadFile(const string & filename)
 	}
 }
 
-vector<float> MeshImporter::GetVertices()
+vector<float>& MeshImporter::GetVertices()
 {
 	return vertices_;
 }
 
-vector<float> MeshImporter::GetNormals()
+vector<float>& MeshImporter::GetNormals()
 {
 	return normals_;
 }
 
-vector<uint8_t> MeshImporter::GetColors()
+vector<uint8_t>& MeshImporter::GetColors()
 {
 	return colors_;
 }
 
-vector<uint32_t> MeshImporter::GetFaces()
+vector<uint32_t>& MeshImporter::GetFaces()
 {
 	return faces_;
 }

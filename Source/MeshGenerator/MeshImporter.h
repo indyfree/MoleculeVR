@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "tinyply.h"
 #include "vector.h"
+#include "tinyply.h"
 
 using namespace std;
 
@@ -11,10 +11,10 @@ public:
 	MeshImporter(const string & filename);
 	~MeshImporter();
 
-	vector<float> GetVertices();
-	vector<float> GetNormals();
-	vector<uint8_t> GetColors();
-	vector<uint32_t> GetFaces();
+	vector<float>& GetVertices();
+	vector<float>& GetNormals();
+	vector<uint8_t>& GetColors();
+	vector<uint32_t>& GetFaces();
 
 private:
 	void ReadFile(const string &filename);
