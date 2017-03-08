@@ -12,49 +12,49 @@ ARuntimeMeshActor::ARuntimeMeshActor()
 	RuntimeMesh = CreateDefaultSubobject<URuntimeMeshComponent>(TEXT("Runtime Mesh"));
 	RootComponent = RuntimeMesh;
 
+	TArray<FRuntimeMeshVertexSimple> Packed_Vertices;
 	TArray<FVector> Vertices;
 	TArray<FVector> Normals;
-	TArray<FRuntimeMeshTangent> Tangents;
 	TArray<FColor> VertexColors;
-	TArray<FVector2D> TextureCoordinates;
 	TArray<int32> Triangles;
 
-	// First vertex
-	Vertices.Add(FVector(0, 100, 100));
-	Normals.Add(FVector(0, 0, 1));
-	Tangents.Add(FRuntimeMeshTangent(0, -1, 0));
-	VertexColors.Add(FColor::White);
-	TextureCoordinates.Add(FVector2D(0, 0));
-
-	// Second vertex
-	Vertices.Add(FVector(100, 100, 0));
-	Normals.Add(FVector(0, 0, 1));
-	Tangents.Add(FRuntimeMeshTangent(0, -1, 0));
-	VertexColors.Add(FColor::White);
-	TextureCoordinates.Add(FVector2D(0, 1));
-
-	// Third vertex
-	Vertices.Add(FVector(100, 0, 0));
-	Normals.Add(FVector(0, 0, 1));
-	Tangents.Add(FRuntimeMeshTangent(0, -1, 0));
-	VertexColors.Add(FColor::White);
-	TextureCoordinates.Add(FVector2D(1, 1));
-
-	// Fourth vertex
 	Vertices.Add(FVector(0, 0, 0));
-	Normals.Add(FVector(0, 0, 1));
-	Tangents.Add(FRuntimeMeshTangent(0, -1, 0));
 	VertexColors.Add(FColor::White);
-	TextureCoordinates.Add(FVector2D(1, 0));
+	
+	Vertices.Add(FVector(100, 0, 0));
+	VertexColors.Add(FColor::White);
+
+	Vertices.Add(FVector(0, 100, 0));
+	VertexColors.Add(FColor::White);
+	
+	Vertices.Add(FVector(0, 0, 100));
+	VertexColors.Add(FColor::White);
+	
 
 	Triangles.Add(0);
 	Triangles.Add(1);
 	Triangles.Add(2);
+
+	Triangles.Add(0);
+	Triangles.Add(3);
+	Triangles.Add(1);
+
 	Triangles.Add(0);
 	Triangles.Add(2);
 	Triangles.Add(3);
 
-	RuntimeMesh->CreateMeshSection(0, Vertices, Triangles, Normals, TextureCoordinates, VertexColors, Tangents);
+	Triangles.Add(1);
+	Triangles.Add(3);
+	Triangles.Add(2);
+
+	FRuntimeMeshTangent tangent = FRuntimeMeshTangent(1, 0, 0);
+	
+	for (int i = 0; i < Vertices.Num(); i++) {
+		FRuntimeMeshVertexSimple packed_vertex = FRuntimeMeshVertexSimple(Vertices[i], VertexColors[i]);
+		Packed_Vertices.Add(packed_vertex);
+	}
+
+	RuntimeMesh->CreateMeshSection(0, Packed_Vertices, Triangles);
 }
 
 // Called when the game starts or when spawned
