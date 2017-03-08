@@ -14,7 +14,7 @@ AMeshActorBase::AMeshActorBase()
 	RootComponent = RuntimeMesh;
 }
 
-void AMeshActorBase::CreateMesh(const std::string & filename) 
+void AMeshActorBase::CreateMesh(const string & filename) 
 {
 	ImportMesh(filename);
 	SetVertexColorMaterial();
@@ -35,15 +35,15 @@ void AMeshActorBase::Tick( float DeltaTime )
 
 }
 
-void AMeshActorBase::ImportMesh(const std::string & filename)
+void AMeshActorBase::ImportMesh(const string & filename)
 {
 
 	MeshImporter import(filename);
 	//TODO dont copy -> pointer or refs
-	std::vector<float> vertices =  import.GetVertices();
-	std::vector<uint32_t> faces =  import.GetFaces();
-	std::vector<uint8_t> colors =  import.GetColors();
-	std::vector<float> normals =  import.GetNormals();
+	vector<float> vertices =  import.GetVertices();
+	vector<uint32_t> faces =  import.GetFaces();
+	vector<uint8_t> colors =  import.GetColors();
+	vector<float> normals =  import.GetNormals();
 	if (normals.size() != vertices.size()) {
 		normals = NormalCalculator::CalculateVertexNormals(faces, vertices);
 	}
