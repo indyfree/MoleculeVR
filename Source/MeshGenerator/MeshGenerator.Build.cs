@@ -24,8 +24,9 @@ public class MeshGenerator : ModuleRules
 
         PrivateDependencyModuleNames.AddRange(new string[] {  });
 
-        PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "tinyply", "Libraries", "tinyply.lib"));
-        PublicIncludePaths.Add(Path.Combine(ThirdPartyPath, "tinyply", "Includes"));
+        PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "assimp", "Libraries", "assimp.lib"));
+
+        PublicIncludePaths.Add(Path.Combine(ThirdPartyPath, "assimp", "Includes"));
 
     }
 }
