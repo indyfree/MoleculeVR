@@ -27,11 +27,11 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
 	// Main creation method
-	void CreateMesh(const string & filename);
+	void CreateMesh(const char* path);
 
 private:
 	// Import Mesh from ply file
-	void ImportMesh(const string & filename);
+	void ImportMesh(const char* path);
 
 	// Set Material to VertexColor to display vertex colors
 	void SetVertexColorMaterial();

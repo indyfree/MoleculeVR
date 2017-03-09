@@ -14,9 +14,9 @@ AMeshActorBase::AMeshActorBase()
 	RootComponent = RuntimeMesh;
 }
 
-void AMeshActorBase::CreateMesh(const string & filename) 
+void AMeshActorBase::CreateMesh(const char* path)
 {
-	ImportMesh(filename);
+	ImportMesh(path);
 	SetVertexColorMaterial();
 	RuntimeMesh->CreateMeshSection(0, Vertices, Triangles);
 }
@@ -35,9 +35,9 @@ void AMeshActorBase::Tick( float DeltaTime )
 
 }
 
-void AMeshActorBase::ImportMesh(const string & filename)
+void AMeshActorBase::ImportMesh(const char* path)
 {
-	MeshImporter import(filename);
+	MeshImporter import(path);
 	vector<float> vertices =  import.GetVertices();
 	vector<uint32_t> faces =  import.GetFaces();
 	vector<uint8_t> colors =  import.GetColors();
