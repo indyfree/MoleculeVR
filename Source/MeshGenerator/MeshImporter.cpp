@@ -15,6 +15,7 @@ MeshImporter::~MeshImporter()
 void MeshImporter::ReadFile(const char* filename)
 {
 	scene = aiImportFile(filename, aiProcessPreset_TargetRealtime_Fast);
+	const struct aiMesh* mesh = scene->mMeshes[0];
 
 }
 
