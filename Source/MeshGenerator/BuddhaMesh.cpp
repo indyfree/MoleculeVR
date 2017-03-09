@@ -7,7 +7,7 @@
 // Sets default values
 ABuddhaMesh::ABuddhaMesh()
 {
-	Super::CreateMesh("c:/users/tobias/mesh/big_buddha_full.ply");
+	//Super::CreateMesh("c:/users/tobias/mesh/big_buddha_full.ply");
 }
 
 // Called when the game starts or when spawned

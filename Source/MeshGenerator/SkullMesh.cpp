@@ -7,7 +7,7 @@
 // Sets default values
 ASkullMesh::ASkullMesh()
 {
-	Super::CreateMesh("c:/users/tobias/mesh/skull.ply");
+	//Super::CreateMesh("c:/users/tobias/mesh/skull.ply");
 
 }
 

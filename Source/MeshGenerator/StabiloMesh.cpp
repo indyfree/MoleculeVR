@@ -8,7 +8,7 @@
 // Sets default values
 AStabiloMesh::AStabiloMesh()
 {	
-	Super::CreateMesh("c:/users/tobias/mesh/stabilo.ply");
+	//Super::CreateMesh("c:/users/tobias/mesh/stabilo.ply");
 
 }
 
