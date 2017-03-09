@@ -37,33 +37,37 @@ void AMeshActorBase::Tick( float DeltaTime )
 
 void AMeshActorBase::ImportMesh(const string & filename)
 {
-
 	MeshImporter import(filename);
 	vector<float> vertices =  import.GetVertices();
 	vector<uint32_t> faces =  import.GetFaces();
 	vector<uint8_t> colors =  import.GetColors();
 	vector<float> normals =  import.GetNormals();
-	if (normals.size() != vertices.size()) {
-		normals = NormalCalculator::CalculateVertexNormals(faces, vertices);
-	}
 
-	FRuntimeMeshVertexSimple packed_vertex;
-	FRuntimeMeshTangent tangent;
-	FVector position;
-	FVector normal;
-	FColor color;
-	for (int i = 0; i <= vertices.size() - 3; i += 3) {
-		position = FVector(vertices[i], vertices[i + 1], vertices[i + 2]);
-		normal = FVector(normals[i], normals[i + 1], normals[i + 2]);
-		color = FColor(colors[i], colors[i + 1], colors[i + 2]);
-		packed_vertex = FRuntimeMeshVertexSimple(position, normal, tangent, color);
-		Vertices.Add(packed_vertex);
-	}
+	if (vertices.size() != 0 && faces.size() != 0) {
 
-	for (int i = 0; i <= faces.size(); i += 3) {
-		Triangles.Add(faces[i]);
-		Triangles.Add(faces[i + 2]);
-		Triangles.Add(faces[i + 1]);
+		if (normals.size() != vertices.size()) {
+			normals = NormalCalculator::CalculateVertexNormals(faces, vertices);
+		}
+
+		FRuntimeMeshVertexSimple packed_vertex;
+		FRuntimeMeshTangent tangent;
+		FVector position;
+		FVector normal;
+		FColor color;
+		for (int i = 0; i <= vertices.size() - 3; i += 3) {
+			position = FVector(vertices[i], vertices[i + 1], vertices[i + 2]);
+			normal = (normals.size() != vertices.size()) ? FVector() : FVector(normals[i], normals[i + 1], normals[i + 2]);
+			color = (colors.size() != vertices.size()) ? FColor() : FColor(colors[i], colors[i + 1], colors[i + 2]);
+			
+			packed_vertex = FRuntimeMeshVertexSimple(position, normal, tangent, color);
+			Vertices.Add(packed_vertex);
+		}
+
+		for (int i = 0; i <= faces.size(); i += 3) {
+			Triangles.Add(faces[i]);
+			Triangles.Add(faces[i + 2]);
+			Triangles.Add(faces[i + 1]);
+		}
 	}
 }
 void AMeshActorBase::SetVertexColorMaterial()
