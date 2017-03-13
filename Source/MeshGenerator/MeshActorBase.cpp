@@ -46,7 +46,7 @@ void AMeshActorBase::ImportMesh(const char* path)
 	if (vertices.size() != 0 && faces.size() != 0) {
 
 		if (normals.size() != vertices.size()) {
-			normals = NormalCalculator::CalculateVertexNormals(faces, vertices);
+			//normals = NormalCalculator::CalculateVertexNormals(faces, vertices);
 		}
 
 		FRuntimeMeshVertexSimple packed_vertex;

@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include <vector>
-#include <assimp/cimport.h>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include <assimp/Importer.hpp>      // C++ importer interface
+#include <assimp/scene.h>           // Output data structure
+#include <assimp/postprocess.h>     // Post processing flags
 
 using namespace std;
 
@@ -26,6 +26,4 @@ private:
 	vector<uint8_t> colors_;
 	vector<uint32_t> faces_;
 	vector<float> uvCoords_;
-
-	const struct aiScene* scene = NULL;
 };

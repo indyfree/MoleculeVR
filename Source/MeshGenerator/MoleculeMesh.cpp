@@ -7,7 +7,7 @@
 // Sets default values
 AMoleculeMesh::AMoleculeMesh()
 {
-	Super::CreateMesh("c:/users/tobias/mesh/4cs4.obj");
+	Super::CreateMesh("c:/users/tobias/mesh/4cs4.dae");
 }
 
 // Called when the game starts or when spawned
