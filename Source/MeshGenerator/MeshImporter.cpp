@@ -53,13 +53,11 @@ void MeshImporter::ReadFile(const char* filename)
 	aiProcess_Triangulate					|  \
 	aiProcess_JoinIdenticalVertices			|  \
 	aiProcess_OptimizeMeshes                |  \
-	aiProcess_OptimizeGraph					|  \
-	aiProcess_PreTransformVertices			|  \
 	0 )
 
 	// TODO revert last two presets to gather color
 	const aiScene* scene = importer.ReadFile(filename, molecule_Preset);
-
+	int face_index = 0;
 
 	for (unsigned int m = 0; m < scene->mNumMeshes; ++m) {
 		const struct aiMesh* mesh = scene->mMeshes[m];
@@ -81,10 +79,11 @@ void MeshImporter::ReadFile(const char* filename)
 		for (unsigned int i = 0; i < mesh->mNumFaces; ++i) {
 			aiFace face = mesh->mFaces[i];
 			for (int j = 0; j < 3; ++j) {
-				faces_.push_back(face.mIndices[j]);
+				faces_.push_back(face.mIndices[j] + face_index);
 			}
 		}
 
+		face_index += mesh->mNumVertices;
 	}
 }
 
