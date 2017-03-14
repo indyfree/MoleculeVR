@@ -52,6 +52,7 @@ void MeshImporter::ReadFile(const char* filename)
 	aiProcess_Triangulate					|  \
 	aiProcess_JoinIdenticalVertices			|  \
 	aiProcess_OptimizeMeshes                |  \
+	aiProcess_OptimizeGraph					|  \
 	0 )
 
 	// TODO revert last two presets to gather color
@@ -68,9 +69,9 @@ void MeshImporter::ReadFile(const char* filename)
 			vertices_.push_back(vertex.z);
 
 			aiColor4t<float> color = mesh->mColors[0][i];
-			colors_.push_back((uint32_t)color.r * 100);
-			colors_.push_back((uint32_t)color.g * 100);
-			colors_.push_back((uint32_t)color.b * 100);
+			colors_.push_back((int)(color.r * 255));
+			colors_.push_back((int)(color.g * 255));
+			colors_.push_back((int)(color.b * 255));
 		}
 
 		for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
