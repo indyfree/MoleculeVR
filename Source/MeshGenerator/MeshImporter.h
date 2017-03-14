@@ -13,17 +13,16 @@ public:
 	MeshImporter(const char* path);
 	~MeshImporter();
 
-	vector<float>& GetVertices();
-	vector<float>& GetNormals();
-	vector<uint8_t>& GetColors();
+	vector<FVector>& GetVertices();
+	vector<FVector>& GetNormals();
+	vector<FColor>& GetColors();
 	vector<uint32_t>& GetFaces();
 
 private:
 	void ReadFile(const char* path);
 
-	vector<float> vertices_;
-	vector<float> normals_;
-	vector<uint8_t> colors_;
+	vector<FVector> vertices_;
+	vector<FVector> normals_;
+	vector<FColor> colors_;
 	vector<uint32_t> faces_;
-	vector<float> uvCoords_;
 };

@@ -17,7 +17,7 @@ AMeshActorBase::AMeshActorBase()
 void AMeshActorBase::CreateMesh(const char* path)
 {
 	ImportMesh(path);
-	SetVertexColorMaterial();
+	SetVertexColorMaterial(0);
 	RuntimeMesh->CreateMeshSection(0, Vertices, Triangles);
 }
 
@@ -38,28 +38,17 @@ void AMeshActorBase::Tick( float DeltaTime )
 void AMeshActorBase::ImportMesh(const char* path)
 {
 	MeshImporter import(path);
-	vector<float> vertices =  import.GetVertices();
+	vector<FVector> vertices =  import.GetVertices();
 	vector<uint32_t> faces =  import.GetFaces();
-	vector<uint8_t> colors =  import.GetColors();
-	vector<float> normals =  import.GetNormals();
+	vector<FColor> colors =  import.GetColors();
+	vector<FVector> normals =  import.GetNormals();
 
 	if (vertices.size() != 0 && faces.size() != 0) {
 
-		if (normals.size() != vertices.size()) {
-			//normals = NormalCalculator::CalculateVertexNormals(faces, vertices);
-		}
-
 		FRuntimeMeshVertexSimple packed_vertex;
 		FRuntimeMeshTangent tangent;
-		FVector position;
-		FVector normal;
-		FColor color;
-		for (int i = 0; i <= vertices.size() - 3; i += 3) {
-			position = FVector(vertices[i], vertices[i + 1], vertices[i + 2]);
-			normal = (normals.size() != vertices.size()) ? FVector() : FVector(normals[i], normals[i + 1], normals[i + 2]);
-			color = (colors.size() != vertices.size()) ? FColor() : FColor(colors[i], colors[i + 1], colors[i + 2]);
-			
-			packed_vertex = FRuntimeMeshVertexSimple(position, normal, tangent, color);
+		for (int i = 0; i < vertices.size(); ++i) {
+			packed_vertex = FRuntimeMeshVertexSimple(vertices[i], normals[i], tangent, colors[i]);
 			Vertices.Add(packed_vertex);
 		}
 
@@ -70,7 +59,7 @@ void AMeshActorBase::ImportMesh(const char* path)
 		}
 	}
 }
-void AMeshActorBase::SetVertexColorMaterial()
+void AMeshActorBase::SetVertexColorMaterial(int section)
 {
 
 	static ConstructorHelpers::FObjectFinder<UMaterial> Material(TEXT("Material'/Game/VirtualReality/Materials/VertexColor.VertexColor'"));
@@ -84,5 +73,5 @@ void AMeshActorBase::SetVertexColorMaterial()
 	// Maybe later use for dynamic materials
 	//UMaterialInstanceDynamic* dynamic_vertex_color_material = UMaterialInstanceDynamic::Create(vertex_color_material, NULL);
 
-	RuntimeMesh->SetMaterial(0, vertex_color_material);
+	RuntimeMesh->SetMaterial(section, vertex_color_material);
 }

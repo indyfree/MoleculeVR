@@ -34,7 +34,7 @@ private:
 	void ImportMesh(const char* path);
 
 	// Set Material to VertexColor to display vertex colors
-	void SetVertexColorMaterial();
+	void SetVertexColorMaterial(int section);
 
 	TArray<FRuntimeMeshVertexSimple> Vertices;
 	TArray<int32> Triangles;
