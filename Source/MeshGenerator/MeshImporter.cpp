@@ -48,7 +48,6 @@ void MeshImporter::ReadFile(const char* filename)
 
 #define molecule_Preset ( \
 	aiProcess_RemoveComponent				|  \
-	aiProcess_SplitLargeMeshes				|  \
 	aiProcess_GenSmoothNormals				|  \
 	aiProcess_Triangulate					|  \
 	aiProcess_JoinIdenticalVertices			|  \
@@ -67,6 +66,11 @@ void MeshImporter::ReadFile(const char* filename)
 			vertices_.push_back(vertex.x);
 			vertices_.push_back(vertex.y);
 			vertices_.push_back(vertex.z);
+
+			aiColor4t<float> color = mesh->mColors[0][i];
+			colors_.push_back((uint32_t)color.r * 100);
+			colors_.push_back((uint32_t)color.g * 100);
+			colors_.push_back((uint32_t)color.b * 100);
 		}
 
 		for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
