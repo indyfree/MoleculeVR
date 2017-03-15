@@ -59,3 +59,4 @@ DerivedDataCache/*
 
 # Visual Studio IntellisenseDB
 *.vc.opendb
+*.VC.db 
