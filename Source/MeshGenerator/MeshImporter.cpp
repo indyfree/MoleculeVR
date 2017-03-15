@@ -45,10 +45,10 @@ void MeshImporter::ReadFile(const char* filename)
 
 		for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
 			aiVector3D vertex = mesh->mVertices[i];
-			vertices_.push_back(FVector(vertex.x, vertex.y, vertex.z));
+			vertices_.push_back(FVector(vertex.x * (-1), vertex.y, vertex.z));
 
 			aiVector3D normal = mesh->mNormals[i];
-			normals_.push_back(FVector(normal.x, normal.y, normal.z));
+			normals_.push_back(FVector(normal.x * (-1), normal.y, normal.z));
 			
 			aiColor4t<float> color = mesh->mColors[0][i];
 			colors_.push_back(FColor((uint8)(color.r * 255),(uint8)(color.g * 255),(uint8)(color.b * 255), (uint8)(color.a * 255)));
