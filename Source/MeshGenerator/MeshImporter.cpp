@@ -39,11 +39,11 @@ void MeshImporter::ReadFile(const char* filename)
 	const aiScene* scene = importer.ReadFile(filename, molecule_Preset);
 	int face_index = 0;
 
-	//Surface Mesh has Vertices > 18, all mols have ALWAYS 18 vertices at other meshes?
 	for (unsigned int m = 0; m < scene->mNumMeshes; ++m) {
 		const struct aiMesh* mesh = scene->mMeshes[m];
 
 		for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
+			// invert x axis to match ue4 coordinate system
 			aiVector3D vertex = mesh->mVertices[i];
 			vertices_.push_back(FVector(vertex.x * (-1), vertex.y, vertex.z));
 
@@ -51,7 +51,7 @@ void MeshImporter::ReadFile(const char* filename)
 			normals_.push_back(FVector(normal.x * (-1), normal.y, normal.z));
 			
 			aiColor4t<float> color = mesh->mColors[0][i];
-			colors_.push_back(FColor((uint8)(color.r * 255),(uint8)(color.g * 255),(uint8)(color.b * 255), (uint8)(color.a * 255)));
+			colors_.push_back(FColor((uint8)(color.r * 255),(uint8)(color.g * 255), (uint8)(color.b * 255), (uint8)(color.a * 255)));
 
 		}
 
