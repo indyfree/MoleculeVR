@@ -29,7 +29,6 @@ public:
 	// Main creation method
 	virtual void CreateMesh(const char* path);
 
-private:
 	// Set Material to VertexColor to display vertex colors
 	void SetVertexColorMaterial(int section);
 };
