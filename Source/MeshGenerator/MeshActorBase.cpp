@@ -52,10 +52,8 @@ void AMeshActorBase::ImportMesh(const char* path)
 			Vertices.Add(packed_vertex);
 		}
 
-		for (int i = 0; i <= faces.size(); i += 3) {
-			Triangles.Add(faces[i]);
-			Triangles.Add(faces[i + 1]);
-			Triangles.Add(faces[i + 2]);
+		for (uint32_t face : faces) {
+			Triangles.Add(face);
 		}
 	}
 }
