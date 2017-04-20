@@ -37,52 +37,35 @@ void MeshImporter::ReadFile(const char* filename)
 
 
 	const aiScene* scene = importer.ReadFile(filename, molecule_Preset);
-	int face_index = 0;
 
 	for (unsigned int m = 0; m < scene->mNumMeshes; ++m) {
-		const struct aiMesh* mesh = scene->mMeshes[m];
+		Mesh mesh;
+		const struct aiMesh* aiMesh = scene->mMeshes[m];
 
-		for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
+		for (unsigned int i = 0; i < aiMesh->mNumVertices; ++i) {
 			// invert x axis to match ue4 coordinate system
-			aiVector3D vertex = mesh->mVertices[i];
-			vertices_.push_back(FVector(vertex.x * (-1), vertex.y, vertex.z));
+			aiVector3D vertex = aiMesh->mVertices[i];
+			mesh.vertices.push_back(FVector(vertex.x * (-1), vertex.y, vertex.z));
 
-			aiVector3D normal = mesh->mNormals[i];
-			normals_.push_back(FVector(normal.x * (-1), normal.y, normal.z));
+			aiVector3D normal = aiMesh->mNormals[i];
+			mesh.normals.push_back(FVector(normal.x * (-1), normal.y, normal.z));
 			
-			aiColor4t<float> color = mesh->mColors[0][i];
-			colors_.push_back(FColor((uint8)(color.r * 255),(uint8)(color.g * 255), (uint8)(color.b * 255), (uint8)(color.a * 255)));
-
+			aiColor4t<float> color = aiMesh->mColors[0][i];
+			mesh.colors.push_back(FColor((uint8)(color.r * 255),(uint8)(color.g * 255), (uint8)(color.b * 255), (uint8)(color.a * 255)));
 		}
 
-		for (unsigned int i = 0; i < mesh->mNumFaces; ++i) {
-			aiFace face = mesh->mFaces[i];
+		for (unsigned int i = 0; i < aiMesh->mNumFaces; ++i) {
+			aiFace face = aiMesh->mFaces[i];
 			for (int j = 0; j < 3; ++j) {
-				faces_.push_back(face.mIndices[j] + face_index);
+				mesh.faces.push_back(face.mIndices[j]);
 			}
 		}
 
-		face_index += mesh->mNumVertices;
+		meshes_.push_back(mesh);
 	}
 }
 
-vector<FVector>& MeshImporter::GetVertices()
+vector<Mesh>& MeshImporter::GetMeshes()
 {
-	return vertices_;
+	return meshes_;
 }
-
-vector<FVector>& MeshImporter::GetNormals()
-{
-	return normals_;
-}
-
-vector<FColor>& MeshImporter::GetColors()
-{
-	return colors_;
-}
-
-vector<uint32_t>& MeshImporter::GetFaces()
-{
-	return faces_;
-}
-

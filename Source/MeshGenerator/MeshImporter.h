@@ -7,22 +7,26 @@
 
 using namespace std;
 
+struct Mesh
+{
+	vector<FVector> vertices;
+	vector<FVector> normals;
+	vector<FColor> colors;
+	vector<uint32_t> faces;
+};
+
 class MESHGENERATOR_API MeshImporter
 {
 public:
 	MeshImporter(const char* path);
 	~MeshImporter();
 
-	vector<FVector>& GetVertices();
-	vector<FVector>& GetNormals();
-	vector<FColor>& GetColors();
-	vector<uint32_t>& GetFaces();
+	vector<Mesh>& GetMeshes();
 
 private:
 	void ReadFile(const char* path);
 
-	vector<FVector> vertices_;
-	vector<FVector> normals_;
-	vector<FColor> colors_;
-	vector<uint32_t> faces_;
+	vector<Mesh> meshes_;
 };
+
+
