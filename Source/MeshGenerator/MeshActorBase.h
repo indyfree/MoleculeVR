@@ -27,15 +27,9 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
 	// Main creation method
-	void CreateMesh(const char* path);
+	virtual void CreateMesh(const char* path);
 
 private:
-	// Import Mesh from ply file
-	void ImportMesh(const char* path);
-
 	// Set Material to VertexColor to display vertex colors
 	void SetVertexColorMaterial(int section);
-
-	TArray<FRuntimeMeshVertexSimple> Vertices;
-	TArray<int32> Triangles;
 };

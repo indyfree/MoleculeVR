@@ -16,9 +16,30 @@ AMeshActorBase::AMeshActorBase()
 
 void AMeshActorBase::CreateMesh(const char* path)
 {
-	ImportMesh(path);
+	MeshImporter importer(path);
+	vector<Mesh> meshes = importer.GetMeshes();
+
+	TArray<FRuntimeMeshVertexSimple> vertices;
+	TArray<int32> triangles;
+	
+	// Combine all imported meshes into on Section
+	int face_index = 0;
+	for (int i = 0; i < meshes.size(); ++i) {
+		Mesh mesh = meshes[i];
+		FRuntimeMeshTangent tangent;
+
+		for (int j = 0; j < mesh.vertices.size(); ++j) {
+			vertices.Add(FRuntimeMeshVertexSimple(mesh.vertices[j], mesh.normals[j], tangent, mesh.colors[j]));
+		}
+
+		for (uint32_t face : mesh.faces) {
+			triangles.Add(face += face_index);
+		}
+		face_index += mesh.vertices.size();
+	}
+
+	RuntimeMesh->CreateMeshSection(0, vertices, triangles);
 	SetVertexColorMaterial(0);
-	RuntimeMesh->CreateMeshSection(0, Vertices, Triangles);
 }
 
 // Called when the game starts or when spawned
@@ -35,31 +56,8 @@ void AMeshActorBase::Tick( float DeltaTime )
 
 }
 
-void AMeshActorBase::ImportMesh(const char* path)
-{
-	MeshImporter import(path);
-	vector<FVector> vertices =  import.GetVertices();
-	vector<uint32_t> faces =  import.GetFaces();
-	vector<FColor> colors =  import.GetColors();
-	vector<FVector> normals =  import.GetNormals();
-
-	if (vertices.size() != 0 && faces.size() != 0) {
-
-		FRuntimeMeshVertexSimple packed_vertex;
-		FRuntimeMeshTangent tangent;
-		for (int i = 0; i < vertices.size(); ++i) {
-			packed_vertex = FRuntimeMeshVertexSimple(vertices[i], normals[i], tangent, colors[i]);
-			Vertices.Add(packed_vertex);
-		}
-
-		for (uint32_t face : faces) {
-			Triangles.Add(face);
-		}
-	}
-}
 void AMeshActorBase::SetVertexColorMaterial(int section)
 {
-
 	static ConstructorHelpers::FObjectFinder<UMaterial> Material(TEXT("Material'/Game/VirtualReality/Materials/VertexColor.VertexColor'"));
 
 	UMaterial* vertex_color_material = NULL;
