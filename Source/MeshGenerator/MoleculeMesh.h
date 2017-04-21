@@ -20,6 +20,6 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-	
-	
+	// Main creation method
+	virtual void CreateMesh(const char* path);
 };
