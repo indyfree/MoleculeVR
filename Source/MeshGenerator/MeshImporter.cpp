@@ -38,6 +38,7 @@ void MeshImporter::ReadFile(const char* filename)
 
 	const aiScene* scene = importer.ReadFile(filename, molecule_Preset);
 
+	//TODO: NO FILE FOUND
 	for (unsigned int m = 0; m < scene->mNumMeshes; ++m) {
 		Mesh mesh;
 		const struct aiMesh* aiMesh = scene->mMeshes[m];
