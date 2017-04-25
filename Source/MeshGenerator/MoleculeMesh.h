@@ -21,5 +21,11 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
 	// Main creation method
-	virtual void CreateMesh(const char* path);
+	virtual void CreateMesh(const char* path) override;
+
+private:
+	TArray<FRuntimeMeshVertexSimple> ExtractSectionVertices(vector<Mesh> meshes);
+	TArray<int32> ExtractSectionFaces(vector<Mesh> meshes);
+
+	void ToggleSurface();
 };

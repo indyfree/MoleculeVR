@@ -7,62 +7,61 @@
 // Sets default values
 AMoleculeMesh::AMoleculeMesh()
 {
-	CreateMesh("c:/users/tobias/mesh/4cs4.dae");
+	CreateMesh("d:/tobi/mesh/4cs4.dae");
 }
 
-void AMoleculeMesh::CreateMesh(const char* path)
-{
+void AMoleculeMesh::CreateMesh(const char* path) {
 	MeshImporter importer(path);
 	vector<Mesh> meshes = importer.GetMeshes();
-	Mesh mesh;
 
-	TArray<FRuntimeMeshVertexSimple> vertices;
-	TArray<int32> triangles;
-	FRuntimeMeshTangent tangent;
-	
-	int face_index = 0;
-	int i = 0;
-	
-	// Inner Molecule as one section
-	while (meshes[i].vertices.size() <= 18) {
-		mesh = meshes[i];
-
-		for (int j = 0; j < mesh.vertices.size(); ++j) {
-			vertices.Add(FRuntimeMeshVertexSimple(mesh.vertices[j], mesh.normals[j], tangent, mesh.colors[j]));
-		}
-
-		for (uint32_t face : mesh.faces) {
-			triangles.Add(face += face_index);
-		}
-
-		face_index += mesh.vertices.size();
-		i++;
+	// Split molecule core and surface into different meshes
+	vector<Mesh> molecule_core;
+	vector<Mesh> molecule_surface;
+	for (Mesh mesh : meshes) {
+		(mesh.vertices.size() > 18) ? molecule_surface.push_back(mesh) : molecule_core.push_back(mesh);
 	}
-	RuntimeMesh->CreateMeshSection(0, vertices, triangles);
+
+	// Render core and surfaces meshes as different sections
+	TArray<FRuntimeMeshVertexSimple> core_vertices = ExtractSectionVertices(molecule_core);
+	TArray<int32> core_faces = ExtractSectionFaces(molecule_core);
+	RuntimeMesh->CreateMeshSection(0, core_vertices, core_faces);
 	SetVertexColorMaterial(0);
 
-	vertices = TArray<FRuntimeMeshVertexSimple>();
-	triangles = TArray<int32>();
-	
-	// Molecule surfaces as one section
-	face_index = 0;
-	while (i < meshes.size()) {
-		mesh = meshes[i];
-		FRuntimeMeshTangent tangent;
+	TArray<FRuntimeMeshVertexSimple> sur_vertices = ExtractSectionVertices(molecule_surface);
+	TArray<int32> sur_faces = ExtractSectionFaces(molecule_surface);
+	RuntimeMesh->CreateMeshSection(1, sur_vertices, sur_faces);
+	SetVertexColorMaterial(1);
+}
 
+TArray<FRuntimeMeshVertexSimple> AMoleculeMesh::ExtractSectionVertices(vector<Mesh> meshes) {
+	TArray<FRuntimeMeshVertexSimple> vertices;
+	FRuntimeMeshTangent tangent;
+	
+	for (Mesh mesh : meshes) {
 		for (int j = 0; j < mesh.vertices.size(); ++j) {
 			vertices.Add(FRuntimeMeshVertexSimple(mesh.vertices[j], mesh.normals[j], tangent, mesh.colors[j]));
 		}
+	}
+	return vertices;
+}
 
-		for (uint32_t face : mesh.faces) {
+TArray<int32> AMoleculeMesh::ExtractSectionFaces(vector<Mesh> meshes) {
+	TArray<int32> triangles;
+	int face_index = 0;
+	
+	for (Mesh mesh : meshes) {
+		for (int32 face : mesh.faces) {
 			triangles.Add(face += face_index);
 		}
-
 		face_index += mesh.vertices.size();
-		i++;
 	}
-	RuntimeMesh->CreateMeshSection(1, vertices, triangles);
-	SetVertexColorMaterial(1);
+	return triangles;
+}
+
+void AMoleculeMesh::ToggleSurface()
+{
+	bool isVisible = RuntimeMesh->IsMeshSectionVisible(1);
+	RuntimeMesh->SetMeshSectionVisible(1, !isVisible);
 }
 
 // Called when the game starts or when spawned
