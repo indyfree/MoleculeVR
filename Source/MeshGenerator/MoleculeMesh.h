@@ -10,12 +10,16 @@ class MESHGENERATOR_API AMoleculeMesh : public AMeshActorBase
 {
 	GENERATED_BODY()
 
-	void OnConstruction(const FTransform& Transform) override;
-
 public:	
 	// Sets default values for this actor's properties
 	AMoleculeMesh();
 
+	// Set physic simulation
+	UFUNCTION(BlueprintCallable)
+	void SetSimulatePhysics(bool simulate);
+
+	// Called when Actor is constructed
+	void OnConstruction(const FTransform& Transform) override;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

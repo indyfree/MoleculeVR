@@ -8,15 +8,15 @@
   - [x] Use UE4-Plugin RuntimeMeshComponent to render mesh
   - [x] Render molecule core and surface as different mesh sections
 * Game
-  - [ ] Toggle surface from userinput
-    - ~~Expose function call~~
-    - Toggle specific molecule
-    - Make molecule an identificable entity
-  - [ ] Move molecule with VR controllers
+  - [x] Move molecule with VR controllers
     - [x] Simulate physics 
       - ~~Look at Convex Collision example~~
       - ~~Set physics and collision in c++ class~~
-     - [ ] Use PickupActor interface for VR integration
+     - [x] Use PickupActor interface for VR integration
+  - [ ] Toggle surface from userinput
+    - [x] Expose function call
+    - Toggle specific molecule
+    - Make molecule an identificable entity
   - [ ] Manipulate Molecule size 
   - [ ] Spawn Actors
 * Interface

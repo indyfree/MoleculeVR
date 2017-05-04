@@ -12,7 +12,7 @@ AMoleculeMesh::AMoleculeMesh()
 void AMoleculeMesh::OnConstruction(const FTransform & Transform)
 {
 	RuntimeMesh->bUseComplexAsSimpleCollision = false;
-	RuntimeMesh->SetSimulatePhysics(true);
+	SetSimulatePhysics(true);
 }
 
 void AMoleculeMesh::CreateMesh(const char* path) {
@@ -73,6 +73,10 @@ TArray<int32> AMoleculeMesh::ExtractSectionFaces(vector<Mesh> meshes) {
 		face_index += mesh.vertices.size();
 	}
 	return triangles;
+}
+
+void AMoleculeMesh::SetSimulatePhysics(bool simulate) {
+	RuntimeMesh->SetSimulatePhysics(simulate);
 }
 
 void AMoleculeMesh::ToggleSurface()
