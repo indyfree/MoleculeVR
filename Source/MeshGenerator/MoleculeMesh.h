@@ -18,6 +18,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetSimulatePhysics(bool simulate);
 
+	// Toggles the visibility of the molecule surface
+	UFUNCTION(BlueprintCallable)
+	void ToggleSurface();
+
 	// Called when Actor is constructed
 	void OnConstruction(const FTransform& Transform) override;
 
@@ -36,5 +40,4 @@ private:
 	TArray<int32> ExtractSectionFaces(vector<Mesh> meshes);
 
 	void SetCollisionConvexMesh(vector<Mesh> collision_meshes);
-	void ToggleSurface();
 };
