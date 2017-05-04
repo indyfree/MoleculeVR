@@ -22,6 +22,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ToggleSurface();
 
+	// Scale the Molecule by given steps
+	UFUNCTION(BlueprintCallable)
+	void ScaleMolecule(float step);
+
 	// Called when Actor is constructed
 	void OnConstruction(const FTransform& Transform) override;
 

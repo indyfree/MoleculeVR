@@ -13,11 +13,11 @@
       - ~~Look at Convex Collision example~~
       - ~~Set physics and collision in c++ class~~
      - [x] Use PickupActor interface for VR integration
-  - [ ] Toggle surface from userinput
+  - [x] Toggle surface from userinput
     - [x] Expose function call
     - Toggle specific molecule
     - Make molecule an identificable entity
-  - [ ] Manipulate Molecule size 
+  - [x] Manipulate Molecule size 
   - [ ] Spawn Actors
 * Interface
   - [ ] Menu
