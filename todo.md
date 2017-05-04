@@ -13,5 +13,4 @@
   - Toggle Surface
   - Manipulate Molecule size
   - Move Molecule with VR Controllers
-  -
 
