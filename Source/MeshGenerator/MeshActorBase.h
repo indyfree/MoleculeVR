@@ -5,7 +5,6 @@
 #include "GameFramework/Actor.h"
 #include "RuntimeMeshComponent.h"
 #include "MeshImporter.h"
-#include "NormalCalculator.h"
 #include "MeshActorBase.generated.h"
 
 UCLASS()
