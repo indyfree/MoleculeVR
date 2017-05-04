@@ -9,10 +9,13 @@ UCLASS()
 class MESHGENERATOR_API AMoleculeMesh : public AMeshActorBase
 {
 	GENERATED_BODY()
-	
+
+	void OnConstruction(const FTransform& Transform) override;
+
 public:	
 	// Sets default values for this actor's properties
 	AMoleculeMesh();
+
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -23,9 +26,11 @@ public:
 	// Main creation method
 	virtual void CreateMesh(const char* path) override;
 
+
 private:
 	TArray<FRuntimeMeshVertexSimple> ExtractSectionVertices(vector<Mesh> meshes);
 	TArray<int32> ExtractSectionFaces(vector<Mesh> meshes);
 
+	void SetCollisionConvexMesh(vector<Mesh> collision_meshes);
 	void ToggleSurface();
 };

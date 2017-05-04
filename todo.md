@@ -13,10 +13,9 @@
     - Toggle specific molecule
     - Make molecule an identificable entity
   - [ ] Move molecule with VR controllers
-    - [ ] Simulate physics 
-      - Look at Convex Collision example
-      - Set physics in Blueprint
-      - Expose vertices from c++ to Blueprint via UPROPERY
+    - [x] Simulate physics 
+      - ~~Look at Convex Collision example~~
+      - ~~Set physics and collision in c++ class~~
      - [ ] Use PickupActor interface for VR integration
   - [ ] Manipulate Molecule size 
   - [ ] Spawn Actors

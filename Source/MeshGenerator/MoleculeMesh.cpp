@@ -3,11 +3,16 @@
 #include "MeshGenerator.h"
 #include "MoleculeMesh.h"
 
-
 // Sets default values
 AMoleculeMesh::AMoleculeMesh()
 {
 	CreateMesh("d:/tobi/mesh/4cs4.dae");
+}
+
+void AMoleculeMesh::OnConstruction(const FTransform & Transform)
+{
+	RuntimeMesh->bUseComplexAsSimpleCollision = false;
+	RuntimeMesh->SetSimulatePhysics(true);
 }
 
 void AMoleculeMesh::CreateMesh(const char* path) {
@@ -31,6 +36,18 @@ void AMoleculeMesh::CreateMesh(const char* path) {
 	TArray<int32> sur_faces = ExtractSectionFaces(molecule_surface);
 	RuntimeMesh->CreateMeshSection(1, sur_vertices, sur_faces);
 	SetVertexColorMaterial(1);
+
+	SetCollisionConvexMesh(molecule_surface);
+}
+
+void AMoleculeMesh::SetCollisionConvexMesh(vector<Mesh> collision_meshes) {
+	TArray<FVector> collision_mesh;
+	for (Mesh mesh : collision_meshes) {
+		for (FVector vertex : mesh.vertices) {
+			collision_mesh.Add(vertex);
+		}
+	}
+	RuntimeMesh->AddCollisionConvexMesh(collision_mesh);
 }
 
 TArray<FRuntimeMeshVertexSimple> AMoleculeMesh::ExtractSectionVertices(vector<Mesh> meshes) {
