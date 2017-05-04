@@ -1,16 +1,26 @@
+# Todo MoleculeVR 
 * Export
-  + Collada Export pymol (.dae) 
+  - [x] Use Collada (.dae) export of molecules  from  pymol  
 * Import
-  + Assimp lib
-  + Two Meshes --> Separate surface from molecule
+  - [x] Use Assimp library to import molecule files
+  - [x] Split mesh into surface and molecule core
 * Render
-  + RuntimeMeshComponent
-  + Different Mesh Sections
-* Spawn Actors
-* Menu
-* Filebrowser
+  - [x] Use UE4-Plugin RuntimeMeshComponent to render mesh
+  - [x] Render molecule core and surface as different mesh sections
 * Game
-  - Toggle Surface
-  - Manipulate Molecule size
-  - Move Molecule with VR Controllers
+  - [] Toggle surface from userinput
+    - ~~Expose function call~~
+    - Toggle specific molecule
+    - Make molecule an identificable entity
+  - [] Move molecule with VR controllers
+    - [] Simulate physics 
+      - Look at Convex Collision example
+      - Set physics in Blueprint
+      - Expose vertices from c++ to Blueprint via UPROPERY
+     - [] Use PickupActor interface for VR integration
+  - [] Manipulate Molecule size 
+  - [] Spawn Actors
+* Interface
+  - [] Menu
+  - [] Filebrowser to select molecule file
 
