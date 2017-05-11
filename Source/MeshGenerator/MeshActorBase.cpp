@@ -14,9 +14,9 @@ AMeshActorBase::AMeshActorBase()
 	RootComponent = RuntimeMesh;
 }
 
-void AMeshActorBase::CreateMesh(const char* path)
+void AMeshActorBase::CreateMesh(string path)
 {
-	MeshImporter importer(path);
+	MeshImporter importer(path.c_str());
 	vector<Mesh> meshes = importer.GetMeshes();
 
 	TArray<FRuntimeMeshVertexSimple> vertices;

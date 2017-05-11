@@ -15,8 +15,8 @@ void AMoleculeMesh::OnConstruction(const FTransform & Transform)
 	SetSimulatePhysics(true);
 }
 
-void AMoleculeMesh::CreateMesh(const char* path) {
-	MeshImporter importer(path);
+void AMoleculeMesh::CreateMesh(string path) {
+	MeshImporter importer(path.c_str());
 	vector<Mesh> meshes = importer.GetMeshes();
 
 	// Split molecule core and surface into different meshes

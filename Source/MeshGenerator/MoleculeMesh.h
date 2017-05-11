@@ -36,7 +36,7 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
 	// Main creation method
-	virtual void CreateMesh(const char* path) override;
+	virtual void CreateMesh(string path) override;
 
 
 private:

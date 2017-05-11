@@ -26,7 +26,7 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
 	// Main creation method
-	virtual void CreateMesh(const char* path);
+	virtual void CreateMesh(string path);
 
 	// Set Material to VertexColor to display vertex colors
 	void SetVertexColorMaterial(int section);
