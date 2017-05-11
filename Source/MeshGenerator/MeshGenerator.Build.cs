@@ -28,5 +28,6 @@ public class MeshGenerator : ModuleRules
 
         PublicIncludePaths.Add(Path.Combine(ThirdPartyPath, "assimp", "Includes"));
 
+        PublicIncludePaths.Add(Path.Combine(ThirdPartyPath, "dirent", "Includes"));
     }
 }
