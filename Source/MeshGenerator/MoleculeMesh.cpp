@@ -2,11 +2,13 @@
 
 #include "MeshGenerator.h"
 #include "MoleculeMesh.h"
+#include "MoleculePicker.h"
 
 // Sets default values
 AMoleculeMesh::AMoleculeMesh()
 {
-	CreateMesh("d:/tobi/mesh/4cs4.dae");
+	string repo_path = "d:/tobi/mesh/";
+	CreateMesh(repo_path + MoleculePicker::FindMeshesInFolder(repo_path)[0]);
 }
 
 void AMoleculeMesh::OnConstruction(const FTransform & Transform)
