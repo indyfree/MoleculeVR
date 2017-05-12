@@ -18,7 +18,7 @@
     - Toggle specific molecule
     - Make molecule an identificable entity
   - [x] Manipulate Molecule size 
-  - [ ] Spawn Actors
+  - [x] Spawn Actors
 * Interface
   - [ ] Menu
   - [ ] Filebrowser to select molecule file

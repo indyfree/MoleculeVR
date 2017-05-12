@@ -8,7 +8,9 @@
 AMoleculeMesh::AMoleculeMesh()
 {
 	string repo_path = "d:/tobi/mesh/";
-	CreateMesh(repo_path + MoleculePicker::FindMeshesInFolder(repo_path)[0]);
+	// TODO: return relative path from base path
+	vector<string> meshes = MoleculePicker::FindMeshesInFolder(repo_path);
+	CreateMesh(repo_path + meshes[1]);
 }
 
 void AMoleculeMesh::OnConstruction(const FTransform & Transform)
