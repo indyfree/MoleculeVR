@@ -21,5 +21,6 @@
   - [x] Spawn Actors
 * Interface
   - [ ] Menu
+    - [ ] Set text from mol to button
   - [ ] Filebrowser to select molecule file
 
