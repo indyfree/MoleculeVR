@@ -20,7 +20,7 @@
   - [x] Manipulate Molecule size 
   - [x] Spawn Actors
 * Interface
-  - [ ] Menu
-    - [ ] Set text from mol to button
-  - [ ] Filebrowser to select molecule file
+  - [x] Menu
+    - [x] Set text from mol to button
+  - [x] Filebrowser to select molecule file
 
