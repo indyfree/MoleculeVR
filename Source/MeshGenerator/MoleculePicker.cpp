@@ -3,6 +3,7 @@
 #include "MeshGenerator.h"
 #include "MoleculePicker.h"
 
+// TODO return relative path from base dir aswell
 vector<string> MoleculePicker::FindMeshesInFolder(string path)
 {
 	return SearchRekursiveInFolder(path, "dae");

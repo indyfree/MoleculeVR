@@ -7,10 +7,6 @@
 // Sets default values
 AMoleculeMesh::AMoleculeMesh()
 {
-	string repo_path = "d:/tobi/mesh/";
-	// TODO: return relative path from base path
-	vector<string> meshes = MoleculePicker::FindMeshesInFolder(repo_path);
-	CreateMesh(repo_path + meshes[1]);
 }
 
 void AMoleculeMesh::OnConstruction(const FTransform & Transform)

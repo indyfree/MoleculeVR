@@ -12,11 +12,11 @@ class MESHGENERATOR_API AMenu : public AActor
 	GENERATED_BODY()
 	
 public:	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FString DirectoryPath = "d:/tobi/mesh/";
 
 	UPROPERTY(BlueprintReadOnly)
-	TArray<FString> MolPaths;
+	TArray<FString> MoleculePaths;
 
 	// Sets default values for this actor's properties
 	AMenu();
