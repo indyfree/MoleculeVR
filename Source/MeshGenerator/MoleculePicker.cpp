@@ -3,10 +3,14 @@
 #include "MeshGenerator.h"
 #include "MoleculePicker.h"
 
-// TODO return relative path from base dir aswell
-vector<string> MoleculePicker::FindMeshesInFolder(string path)
+vector<string> MoleculePicker::FindMeshesInFolder(string base_dir, string extension)
 {
-	return SearchRekursiveInFolder(path, "dae");
+	vector<string> mol_paths_relative;
+	// return relative path from base dir
+	for (string mol_path : SearchRekursiveInFolder(base_dir, extension)) {
+		mol_paths_relative.push_back(mol_path.substr(base_dir.size(), mol_path.size() - base_dir.size()));
+	}
+	return mol_paths_relative;
 }
 
 /*
@@ -28,7 +32,7 @@ vector<string> MoleculePicker::SearchRekursiveInFolder(string directory, string 
 		}
 		else if (entry->d_type == DT_REG) {		// if entry is a regular file
 			if (fname.find(extension, (fname.length() - extension.length())) != string::npos)
-				results.push_back(fname);		// add filename to results vector
+				results.push_back(directory + fname);		// add filename to results vector
 		}
 		entry = readdir(dir_point);
 	}

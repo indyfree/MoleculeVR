@@ -12,8 +12,11 @@ class MESHGENERATOR_API AMenu : public AActor
 	GENERATED_BODY()
 	
 public:	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=MoleculeMenu)
 	FString DirectoryPath = "d:/tobi/mesh/";
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=MoleculeMenu)
+	FString FileExtension = ".dae";
 
 	UPROPERTY(BlueprintReadOnly)
 	TArray<FString> MoleculePaths;

@@ -10,7 +10,7 @@ using namespace std;
 class MESHGENERATOR_API MoleculePicker
 {
 public:
-	static vector<string> FindMeshesInFolder(string path);
+	static vector<string> FindMeshesInFolder(string base_dir, string extension);
 
 private: 
 	static vector<string> SearchRekursiveInFolder(string directory, string extension);

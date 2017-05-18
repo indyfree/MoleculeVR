@@ -15,7 +15,7 @@ AMenu::AMenu()
 // Called when the game starts or when spawned
 void AMenu::BeginPlay()
 {
-	vector<string> paths = MoleculePicker::FindMeshesInFolder(TCHAR_TO_UTF8(*DirectoryPath));
+	vector<string> paths = MoleculePicker::FindMeshesInFolder(TCHAR_TO_UTF8(*DirectoryPath), TCHAR_TO_UTF8(*FileExtension));
 	for (string path : paths) {
 		MoleculePaths.Add(FString(path.c_str()));
 	}
