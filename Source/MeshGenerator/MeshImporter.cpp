@@ -20,7 +20,7 @@ MeshImporter::~MeshImporter()
 	aiProcess_OptimizeMeshes                |  \
 	0 )
 
-void MeshImporter::ReadFile(const char* filename)
+bool MeshImporter::ReadFile(const char* filename)
 {
 	Assimp::Importer importer;
 	
@@ -38,7 +38,11 @@ void MeshImporter::ReadFile(const char* filename)
 
 	const aiScene* scene = importer.ReadFile(filename, molecule_Preset);
 
-	//TODO: NO FILE FOUND
+	//TODO: User Feedback
+	if (scene == NULL) {
+		return false;
+	}
+
 	for (unsigned int m = 0; m < scene->mNumMeshes; ++m) {
 		Mesh mesh;
 		const struct aiMesh* aiMesh = scene->mMeshes[m];
@@ -64,6 +68,8 @@ void MeshImporter::ReadFile(const char* filename)
 
 		meshes_.push_back(mesh);
 	}
+
+	return true;
 }
 
 vector<Mesh>& MeshImporter::GetMeshes()

@@ -24,7 +24,7 @@ public:
 	vector<Mesh>& GetMeshes();
 
 private:
-	void ReadFile(const char* path);
+	bool ReadFile(const char* path);
 
 	vector<Mesh> meshes_;
 };
