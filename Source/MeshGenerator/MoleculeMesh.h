@@ -26,6 +26,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ScaleMolecule(float step);
 
+	// Main creation method
+	UFUNCTION(BlueprintCallable)
+	void CreateMesh(FString path);
+
 	// Called when Actor is constructed
 	void OnConstruction(const FTransform& Transform) override;
 
@@ -34,9 +38,6 @@ public:
 	
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
-
-	// Main creation method
-	virtual void CreateMesh(string path) override;
 
 
 private:

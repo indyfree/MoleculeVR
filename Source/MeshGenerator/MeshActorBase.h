@@ -15,6 +15,8 @@ class MESHGENERATOR_API AMeshActorBase : public AActor
 public:	
 	UPROPERTY(EditAnywhere)
 	URuntimeMeshComponent* RuntimeMesh;
+
+	UMaterial* VertexColorMaterial;
 	
 	// Sets default values for this actor's properties
 	AMeshActorBase();
@@ -29,5 +31,5 @@ public:
 	virtual void CreateMesh(string path);
 
 	// Set Material to VertexColor to display vertex colors
-	void SetVertexColorMaterial(int section);
+	void GetVertexColorMaterial();
 };

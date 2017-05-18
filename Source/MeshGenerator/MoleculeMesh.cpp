@@ -15,8 +15,8 @@ void AMoleculeMesh::OnConstruction(const FTransform & Transform)
 	SetSimulatePhysics(true);
 }
 
-void AMoleculeMesh::CreateMesh(string path) {
-	MeshImporter importer(path.c_str());
+void AMoleculeMesh::CreateMesh(FString path) {
+	MeshImporter importer(TCHAR_TO_ANSI(*path));
 	vector<Mesh> meshes = importer.GetMeshes();
 
 	// Split molecule core and surface into different meshes
@@ -30,12 +30,12 @@ void AMoleculeMesh::CreateMesh(string path) {
 	TArray<FRuntimeMeshVertexSimple> core_vertices = ExtractSectionVertices(molecule_core);
 	TArray<int32> core_faces = ExtractSectionFaces(molecule_core);
 	RuntimeMesh->CreateMeshSection(0, core_vertices, core_faces);
-	SetVertexColorMaterial(0);
+	RuntimeMesh->SetMaterial(0, VertexColorMaterial);
 
 	TArray<FRuntimeMeshVertexSimple> sur_vertices = ExtractSectionVertices(molecule_surface);
 	TArray<int32> sur_faces = ExtractSectionFaces(molecule_surface);
 	RuntimeMesh->CreateMeshSection(1, sur_vertices, sur_faces);
-	SetVertexColorMaterial(1);
+	RuntimeMesh->SetMaterial(1, VertexColorMaterial);
 
 	SetCollisionConvexMesh(molecule_surface);
 }

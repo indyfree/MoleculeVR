@@ -8,10 +8,12 @@
 AMeshActorBase::AMeshActorBase()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	RuntimeMesh = CreateDefaultSubobject<URuntimeMeshComponent>(TEXT("Runtime Mesh"));
 	RootComponent = RuntimeMesh;
+
+	GetVertexColorMaterial();
 }
 
 void AMeshActorBase::CreateMesh(string path)
@@ -39,7 +41,7 @@ void AMeshActorBase::CreateMesh(string path)
 	}
 
 	RuntimeMesh->CreateMeshSection(0, vertices, triangles);
-	SetVertexColorMaterial(0);
+	RuntimeMesh->SetMaterial(0, VertexColorMaterial);
 }
 
 // Called when the game starts or when spawned
@@ -56,18 +58,16 @@ void AMeshActorBase::Tick( float DeltaTime )
 
 }
 
-void AMeshActorBase::SetVertexColorMaterial(int section)
+void AMeshActorBase::GetVertexColorMaterial()
 {
 	static ConstructorHelpers::FObjectFinder<UMaterial> Material(TEXT("Material'/Game/VirtualReality/Materials/VertexColor.VertexColor'"));
 
-	UMaterial* vertex_color_material = NULL;
 	if (Material.Object != NULL)
 	{
-		vertex_color_material = (UMaterial*)Material.Object;
+		VertexColorMaterial = (UMaterial*)Material.Object;
 	}
 
 	// Maybe later use for dynamic materials
 	//UMaterialInstanceDynamic* dynamic_vertex_color_material = UMaterialInstanceDynamic::Create(vertex_color_material, NULL);
 
-	RuntimeMesh->SetMaterial(section, vertex_color_material);
 }
