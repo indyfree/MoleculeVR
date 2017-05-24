@@ -23,4 +23,7 @@
   - [x] Menu
     - [x] Set text from mol to button
   - [x] Filebrowser to select molecule file
+  - [ ] Make menu stick to controler
+  - Look at HTC Vive VR Tutorials wid VR Menu 3D Widget
+  - Look at VRExpansion Pack Menus
 
