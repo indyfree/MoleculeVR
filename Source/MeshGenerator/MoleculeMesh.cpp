@@ -12,7 +12,6 @@ AMoleculeMesh::AMoleculeMesh()
 void AMoleculeMesh::OnConstruction(const FTransform & Transform)
 {
 	RuntimeMesh->bUseComplexAsSimpleCollision = false;
-	SetSimulatePhysics(true);
 }
 
 void AMoleculeMesh::CreateMesh(FString path) {
@@ -96,7 +95,7 @@ void AMoleculeMesh::ScaleMolecule(float step)
 void AMoleculeMesh::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	SetSimulatePhysics(false);
 }
 
 // Called every frame
