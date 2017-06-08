@@ -23,7 +23,13 @@
   - [x] Menu
     - [x] Set text from mol to button
   - [x] Filebrowser to select molecule file
-  - [ ] Make menu stick to controler
-  - Look at HTC Vive VR Tutorials wid VR Menu 3D Widget
-  - Look at VRExpansion Pack Menus
+  - [x] Make menu stick to controler
+  - [x] Disabled physics for more practical use (molecules dont need to fall down)
+  - [ ] Spawn molucule in hand or before menu --> hide menu?
+  - [ ] Find good menu position
+  - [ ] Create Lab level
+    - [ ] Lab table with molecules on top
+    - [ ] Fixed menu in front of table --> spawn molecules on table
+  - [ ] Widget interaction bug left of molecule
+  - [
 
