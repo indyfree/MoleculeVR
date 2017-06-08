@@ -25,8 +25,8 @@
   - [x] Filebrowser to select molecule file
   - [x] Make menu stick to controler
   - [x] Disabled physics for more practical use (molecules dont need to fall down)
-  - [ ] Spawn molucule in hand or before menu --> hide menu?
-  - [ ] Find good menu position
+  - [x] Spawn molucule in hand or before menu --> hide menu?
+  - [x] Find good menu position
   - [ ] Create Lab level
     - [ ] Lab table with molecules on top
     - [ ] Fixed menu in front of table --> spawn molecules on table
