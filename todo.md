@@ -31,7 +31,7 @@
     - [ ] Lab table with molecules on top
     - [ ] ~~Fixed menu in front of table --> spawn molecules on table~~
   - [ ] Widget interaction bug left of molecule
-  - [ ] Left hand bug
+  - [x] Left hand bug interaction bug
   - [ ] Consolidate input from Vive and Oculus
 
 
