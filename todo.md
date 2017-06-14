@@ -29,7 +29,9 @@
   - [x] Find good menu position
   - [ ] Create Lab level
     - [ ] Lab table with molecules on top
-    - [ ] Fixed menu in front of table --> spawn molecules on table
+    - [ ] ~~Fixed menu in front of table --> spawn molecules on table~~
   - [ ] Widget interaction bug left of molecule
+  - [ ] Left hand bug
   - [ ] Consolidate input from Vive and Oculus
+
 
