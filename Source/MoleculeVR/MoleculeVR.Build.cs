@@ -4,7 +4,7 @@ using System.IO;
 using System;
 using UnrealBuildTool;
 
-public class MeshGenerator : ModuleRules
+public class MoleculeVR : ModuleRules
 {
     private string ModulePath
     {
@@ -16,7 +16,7 @@ public class MeshGenerator : ModuleRules
         get { return Path.GetFullPath(Path.Combine(ModulePath, "../../ThirdParty/")); }
     }
 
-    public MeshGenerator(TargetInfo Target)
+    public MoleculeVR(TargetInfo Target)
 	{
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore"});
 

@@ -8,7 +8,7 @@
 #include "MeshActorBase.generated.h"
 
 UCLASS()
-class MESHGENERATOR_API AMeshActorBase : public AActor
+class MOLECULEVR_API AMeshActorBase : public AActor
 {
 	GENERATED_BODY()
 	

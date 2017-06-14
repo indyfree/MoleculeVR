@@ -6,7 +6,7 @@
 #include "MoleculeMesh.generated.h"
 
 UCLASS()
-class MESHGENERATOR_API AMoleculeMesh : public AMeshActorBase
+class MOLECULEVR_API AMoleculeMesh : public AMeshActorBase
 {
 	GENERATED_BODY()
 

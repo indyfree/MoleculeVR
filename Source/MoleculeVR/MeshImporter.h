@@ -15,7 +15,7 @@ struct Mesh
 	vector<uint32_t> faces;
 };
 
-class MESHGENERATOR_API MeshImporter
+class MOLECULEVR_API MeshImporter
 {
 public:
 	MeshImporter(const char* path);

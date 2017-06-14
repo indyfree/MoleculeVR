@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class MESHGENERATOR_API MoleculePicker
+class MOLECULEVR_API MoleculePicker
 {
 public:
 	static vector<string> FindMeshesInFolder(string base_dir, string extension);

@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "MeshGenerator.h"
+#include "MoleculeVR.h"
 #include "MoleculeMesh.h"
 #include "MoleculePicker.h"
 

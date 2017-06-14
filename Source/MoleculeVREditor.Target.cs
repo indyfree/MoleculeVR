@@ -3,9 +3,9 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class MeshGeneratorEditorTarget : TargetRules
+public class MoleculeVREditorTarget : TargetRules
 {
-	public MeshGeneratorEditorTarget(TargetInfo Target)
+	public MoleculeVREditorTarget(TargetInfo Target)
 	{
 		Type = TargetType.Editor;
 	}
@@ -20,6 +20,6 @@ public class MeshGeneratorEditorTarget : TargetRules
 		ref List<string> OutExtraModuleNames
 		)
 	{
-		OutExtraModuleNames.AddRange( new string[] { "MeshGenerator" } );
+		OutExtraModuleNames.AddRange( new string[] { "MoleculeVR" } );
 	}
 }

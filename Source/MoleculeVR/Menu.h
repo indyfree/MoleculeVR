@@ -7,7 +7,7 @@
 #include "Menu.generated.h"
 
 UCLASS()
-class MESHGENERATOR_API AMenu : public AActor
+class MOLECULEVR_API AMenu : public AActor
 {
 	GENERATED_BODY()
 	
