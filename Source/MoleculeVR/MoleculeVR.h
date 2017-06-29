@@ -4,3 +4,12 @@
 
 #include "Engine.h"
 
+class MoleculeVRModule : public FDefaultGameModuleImpl {
+
+public:
+	virtual void StartupModule() override;
+	virtual void ShutdownModule() override;
+private:
+	void* AssimpDLL;
+};
+

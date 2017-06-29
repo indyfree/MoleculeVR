@@ -24,6 +24,10 @@ public class MoleculeVR : ModuleRules
 
         PrivateDependencyModuleNames.AddRange(new string[] {  });
 
+        // Third Party Libraries
+
+        PublicDelayLoadDLLs.Add("assimp.dll");
+        
         PublicAdditionalLibraries.Add(Path.Combine(ThirdPartyPath, "assimp", "Libraries", "assimp.lib"));
 
         PublicIncludePaths.Add(Path.Combine(ThirdPartyPath, "assimp", "Includes"));
