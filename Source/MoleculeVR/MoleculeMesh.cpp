@@ -10,6 +10,7 @@ AMoleculeMesh::AMoleculeMesh()
 	RuntimeMesh = CreateDefaultSubobject<URuntimeMeshComponent>(TEXT("Runtime Mesh"));
 	RootComponent = RuntimeMesh;
 	GetVertexColorMaterial();
+	SetSimulatePhysics(false);
 }
 
 void AMoleculeMesh::OnConstruction(const FTransform & Transform)
@@ -79,6 +80,7 @@ TArray<int32> AMoleculeMesh::ExtractSectionFaces(vector<Mesh> meshes) {
 
 void AMoleculeMesh::SetSimulatePhysics(bool simulate) {
 	RuntimeMesh->SetSimulatePhysics(simulate);
+	RuntimeMesh->SetEnableGravity(simulate);
 }
 
 void AMoleculeMesh::ToggleSurface()
@@ -101,13 +103,10 @@ void AMoleculeMesh::GetVertexColorMaterial()
 void AMoleculeMesh::BeginPlay()
 {
 	Super::BeginPlay();
-	SetSimulatePhysics(false);
 }
 
 // Called every frame
 void AMoleculeMesh::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-
 }
-
