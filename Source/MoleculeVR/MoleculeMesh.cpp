@@ -87,13 +87,6 @@ void AMoleculeMesh::ToggleSurface()
 	RuntimeMesh->SetMeshSectionVisible(1, !isVisible);
 }
 
-void AMoleculeMesh::ScaleMolecule(float step)
-{
-	float current_scale = RuntimeMesh->GetComponentScale().X;
-	current_scale = FMath::Clamp(current_scale, 0.5f, 2.5f);
-	RuntimeMesh->SetRelativeScale3D(FVector(current_scale + step));
-}
-
 void AMoleculeMesh::GetVertexColorMaterial()
 {
 	static ConstructorHelpers::FObjectFinder<UMaterial> Material(TEXT("Material'/Game/VirtualReality/Materials/VertexColor.VertexColor'"));
