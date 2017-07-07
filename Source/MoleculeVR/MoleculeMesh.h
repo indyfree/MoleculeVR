@@ -48,7 +48,6 @@ private:
 
 	void SetCollisionConvexMesh(vector<Mesh> collision_meshes);
 	
-	// Get Material to VertexColor to display vertex colors
-	void GetVertexColorMaterial();
-
+	// Find Material in Project Directory
+	UMaterial* FindVertexColorMaterial();
 };

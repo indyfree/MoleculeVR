@@ -9,7 +9,12 @@ AMoleculeMesh::AMoleculeMesh()
 {
 	RuntimeMesh = CreateDefaultSubobject<URuntimeMeshComponent>(TEXT("Runtime Mesh"));
 	RootComponent = RuntimeMesh;
-	GetVertexColorMaterial();
+
+	// Find Material in Project, needs to happen in Contructor
+	VertexColorMaterial = FindVertexColorMaterial();
+
+	// Do not simulate physics
+	// Remember to turn physics on in the pickup logic of the BP, when enableing
 	SetSimulatePhysics(false);
 }
 
@@ -89,14 +94,10 @@ void AMoleculeMesh::ToggleSurface()
 	RuntimeMesh->SetMeshSectionVisible(1, !isVisible);
 }
 
-void AMoleculeMesh::GetVertexColorMaterial()
+UMaterial* AMoleculeMesh::FindVertexColorMaterial()
 {
 	static ConstructorHelpers::FObjectFinder<UMaterial> Material(TEXT("Material'/Game/VirtualReality/Materials/VertexColor.VertexColor'"));
-
-	if (Material.Object != NULL)
-	{
-		VertexColorMaterial = (UMaterial*)Material.Object;
-	}
+	return (UMaterial*)Material.Object;
 }
 
 // Called when the game starts or when spawned
