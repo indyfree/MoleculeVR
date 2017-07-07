@@ -2,11 +2,13 @@
 
 #pragma once
 
-#include "MeshActorBase.h"
+#include "GameFramework/Actor.h"
+#include "RuntimeMeshComponent.h"
+#include "MeshImporter.h"
 #include "MoleculeMesh.generated.h"
 
 UCLASS()
-class MOLECULEVR_API AMoleculeMesh : public AMeshActorBase
+class MOLECULEVR_API AMoleculeMesh : public AActor
 {
 	GENERATED_BODY()
 
@@ -14,6 +16,14 @@ public:
 	// Sets default values for this actor's properties
 	AMoleculeMesh();
 
+	UPROPERTY(EditAnywhere)
+	URuntimeMeshComponent* RuntimeMesh;
+	UMaterial* VertexColorMaterial;
+	
+	// Main creation method
+	UFUNCTION(BlueprintCallable)
+	void CreateMesh(FString path);
+	
 	// Set physic simulation
 	UFUNCTION(BlueprintCallable)
 	void SetSimulatePhysics(bool simulate);
@@ -25,10 +35,6 @@ public:
 	// Scale the Molecule by given steps
 	UFUNCTION(BlueprintCallable)
 	void ScaleMolecule(float step);
-
-	// Main creation method
-	UFUNCTION(BlueprintCallable)
-	void CreateMesh(FString path);
 
 	// Called when Actor is constructed
 	void OnConstruction(const FTransform& Transform) override;
@@ -45,4 +51,8 @@ private:
 	TArray<int32> ExtractSectionFaces(vector<Mesh> meshes);
 
 	void SetCollisionConvexMesh(vector<Mesh> collision_meshes);
+	
+	// Get Material to VertexColor to display vertex colors
+	void GetVertexColorMaterial();
+
 };
