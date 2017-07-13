@@ -4,7 +4,7 @@
 #include "MoleculeMesh.h"
 #include "MoleculePicker.h"
 
-// Sets default values
+// Constructur settings: Settings to Runtimemesh will be overriden by Blueprints 
 AMoleculeMesh::AMoleculeMesh()
 {
 	RuntimeMesh = CreateDefaultSubobject<URuntimeMeshComponent>(TEXT("Runtime Mesh"));
@@ -12,14 +12,18 @@ AMoleculeMesh::AMoleculeMesh()
 
 	// Find Material in Project, needs to happen in Contructor
 	VertexColorMaterial = FindVertexColorMaterial();
-
-	// Do not simulate physics
-	// Remember to turn physics on in the pickup logic of the BP, when enableing
-	SetSimulatePhysics(false);
 }
 
-void AMoleculeMesh::OnConstruction(const FTransform & Transform)
+// Called when when spawned: Overrides Blueprint settings
+void AMoleculeMesh::BeginPlay()
 {
+	Super::BeginPlay();
+	
+	// Do not simulate physics
+	// Remember to turn physics on in the pickup logic of the BP, when enableling
+	SetSimulatePhysics(false);
+	
+	// We use simple collision to detect pick up events etc.
 	RuntimeMesh->bUseComplexAsSimpleCollision = false;
 }
 
@@ -98,12 +102,6 @@ UMaterial* AMoleculeMesh::FindVertexColorMaterial()
 {
 	static ConstructorHelpers::FObjectFinder<UMaterial> Material(TEXT("Material'/Game/VirtualReality/Materials/VertexColor.VertexColor'"));
 	return (UMaterial*)Material.Object;
-}
-
-// Called when the game starts or when spawned
-void AMoleculeMesh::BeginPlay()
-{
-	Super::BeginPlay();
 }
 
 // Called every frame
