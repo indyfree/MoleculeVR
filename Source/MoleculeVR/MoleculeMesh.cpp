@@ -4,7 +4,7 @@
 #include "MoleculeMesh.h"
 #include "MoleculePicker.h"
 
-// Constructur settings: Settings to Runtimemesh will be overriden by Blueprints 
+/** Constructur settings: Settings to Runtimemesh will be overriden by Blueprints **/
 AMoleculeMesh::AMoleculeMesh()
 {
 	RuntimeMesh = CreateDefaultSubobject<URuntimeMeshComponent>(TEXT("Runtime Mesh"));
@@ -14,7 +14,7 @@ AMoleculeMesh::AMoleculeMesh()
 	VertexColorMaterial = FindVertexColorMaterial();
 }
 
-// Called when when spawned: Overrides Blueprint settings
+/** Called when when spawned: Overrides Blueprint settings **/
 void AMoleculeMesh::BeginPlay()
 {
 	Super::BeginPlay();
@@ -30,25 +30,27 @@ void AMoleculeMesh::BeginPlay()
 void AMoleculeMesh::CreateMesh(FString path) {
 	MeshImporter importer(TCHAR_TO_ANSI(*path));
 	vector<Mesh> meshes = importer.GetMeshes();
-
-	// Split molecule core and surface into different meshes
 	vector<Mesh> molecule_core;
 	vector<Mesh> molecule_surface;
+	
+	// Meshes with more than 18 vertices belong to the surface
 	for (Mesh mesh : meshes) {
 		(mesh.vertices.size() > 18) ? molecule_surface.push_back(mesh) : molecule_core.push_back(mesh);
 	}
 
-	// Render core and surfaces meshes as different sections
+	// Create core section
 	TArray<FRuntimeMeshVertexSimple> core_vertices = ExtractSectionVertices(molecule_core);
 	TArray<int32> core_faces = ExtractSectionFaces(molecule_core);
 	RuntimeMesh->CreateMeshSection(0, core_vertices, core_faces);
 	RuntimeMesh->SetMaterial(0, VertexColorMaterial);
 
+	// Create surface section
 	TArray<FRuntimeMeshVertexSimple> sur_vertices = ExtractSectionVertices(molecule_surface);
 	TArray<int32> sur_faces = ExtractSectionFaces(molecule_surface);
 	RuntimeMesh->CreateMeshSection(1, sur_vertices, sur_faces);
 	RuntimeMesh->SetMaterial(1, VertexColorMaterial);
 
+	// Set surface as collision mesh
 	SetCollisionConvexMesh(molecule_surface);
 }
 
@@ -104,7 +106,6 @@ UMaterial* AMoleculeMesh::FindVertexColorMaterial()
 	return (UMaterial*)Material.Object;
 }
 
-// Called every frame
 void AMoleculeMesh::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
