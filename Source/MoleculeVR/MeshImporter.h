@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include <vector>
 #include <assimp/Importer.hpp>      // C++ importer interface
 #include <assimp/scene.h>           // Output data structure
@@ -7,6 +5,7 @@
 
 using namespace std;
 
+// Mesh struct to better incorporate mesh related data
 struct Mesh
 {
 	vector<FVector> vertices;
@@ -19,7 +18,6 @@ class MOLECULEVR_API MeshImporter
 {
 public:
 	MeshImporter(const char* path);
-	~MeshImporter();
 
 	vector<Mesh>& GetMeshes();
 

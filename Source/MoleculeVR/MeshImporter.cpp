@@ -8,10 +8,7 @@ MeshImporter::MeshImporter(const char* path)
 	ReadFile(path);
 }
 
-MeshImporter::~MeshImporter()
-{
-}
-
+// Defines import settings: optimize mesh structure
 #define molecule_Preset ( \
 	aiProcess_RemoveComponent				|  \
 	aiProcess_GenSmoothNormals				|  \
@@ -23,7 +20,8 @@ MeshImporter::~MeshImporter()
 bool MeshImporter::ReadFile(const char* filename)
 {
 	Assimp::Importer importer;
-	
+
+	// We dont want to import Materials, Textures, Animations, etc..
 	importer.SetPropertyInteger(AI_CONFIG_PP_RVC_FLAGS,
 		aiComponent_TANGENTS_AND_BITANGENTS |
 		aiComponent_MATERIALS |
@@ -35,41 +33,41 @@ bool MeshImporter::ReadFile(const char* filename)
 		aiComponent_TEXCOORDS
 	);
 
-
 	const aiScene* scene = importer.ReadFile(filename, molecule_Preset);
 
-	//TODO: User Feedback
-	if (scene == NULL) {
-		return false;
-	}
+	//TODO: User Feedback that file is empty or not readible
+	if (scene != NULL) {
+		for (unsigned int m = 0; m < scene->mNumMeshes; ++m) {
+			Mesh mesh;
+			const struct aiMesh* aiMesh = scene->mMeshes[m];
 
-	for (unsigned int m = 0; m < scene->mNumMeshes; ++m) {
-		Mesh mesh;
-		const struct aiMesh* aiMesh = scene->mMeshes[m];
+			// read vertices, normals and vertex colors and transform to UE4 data types
+			for (unsigned int i = 0; i < aiMesh->mNumVertices; ++i) {
+				// invert x axis to match UE4 coordinate system
+				aiVector3D vertex = aiMesh->mVertices[i];
+				mesh.vertices.push_back(FVector(vertex.x * (-1), vertex.y, vertex.z));
 
-		for (unsigned int i = 0; i < aiMesh->mNumVertices; ++i) {
-			// invert x axis to match ue4 coordinate system
-			aiVector3D vertex = aiMesh->mVertices[i];
-			mesh.vertices.push_back(FVector(vertex.x * (-1), vertex.y, vertex.z));
+				aiVector3D normal = aiMesh->mNormals[i];
+				mesh.normals.push_back(FVector(normal.x * (-1), normal.y, normal.z));
 
-			aiVector3D normal = aiMesh->mNormals[i];
-			mesh.normals.push_back(FVector(normal.x * (-1), normal.y, normal.z));
-			
-			aiColor4t<float> color = aiMesh->mColors[0][i];
-			mesh.colors.push_back(FColor((uint8)(color.r * 255),(uint8)(color.g * 255), (uint8)(color.b * 255), (uint8)(color.a * 255)));
-		}
-
-		for (unsigned int i = 0; i < aiMesh->mNumFaces; ++i) {
-			aiFace face = aiMesh->mFaces[i];
-			for (int j = 0; j < 3; ++j) {
-				mesh.faces.push_back(face.mIndices[j]);
+				//UE4 saves colors as [0-255] ints
+				aiColor4t<float> color = aiMesh->mColors[0][i];
+				mesh.colors.push_back(FColor((uint8)(color.r * 255), (uint8)(color.g * 255), (uint8)(color.b * 255), (uint8)(color.a * 255)));
 			}
-		}
 
-		meshes_.push_back(mesh);
+			// read trianges
+			for (unsigned int i = 0; i < aiMesh->mNumFaces; ++i) {
+				aiFace face = aiMesh->mFaces[i];
+				for (unsigned int j = 0; j < 3; ++j) {
+					mesh.faces.push_back(face.mIndices[j]);
+				}
+			}
+			meshes_.push_back(mesh);
+		}
+		return true;
 	}
 
-	return true;
+	return false; // No file or mesh found or incompatible file format
 }
 
 vector<Mesh>& MeshImporter::GetMeshes()
