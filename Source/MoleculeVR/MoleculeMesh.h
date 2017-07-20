@@ -42,9 +42,9 @@ public:
 private:
 	void RenderMeshSection(vector<Mesh> meshes, int index);
 
-	TArray<FRuntimeMeshVertexSimple> ExtractSectionVertices(vector<Mesh> meshes);
+	TArray<FRuntimeMeshVertexSimple> CreatePackedVertices(vector<Mesh> meshes);
 
-	TArray<int32> ExtractSectionFaces(vector<Mesh> meshes);
+	TArray<int32> CombineTriangleLists(vector<Mesh> meshes);
 
 	void SetCollisionConvexMesh(vector<Mesh> collision_meshes);
 	
