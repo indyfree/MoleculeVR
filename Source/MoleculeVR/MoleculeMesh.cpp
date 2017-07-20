@@ -48,10 +48,15 @@ void AMoleculeMesh::CreateMesh(FString path)
 	SetCollisionConvexMesh(molecule_surface);
 }
 
+/**
+*
+* Renders a list of meshes as a RuntimeMesh Section
+*
+**/
 void AMoleculeMesh::RenderMeshSection(vector<Mesh> meshes, int index)
 {
-	TArray<FRuntimeMeshVertexSimple> vertices = ExtractSectionVertices(meshes);
-	TArray<int32> faces = ExtractSectionFaces(meshes);
+	TArray<FRuntimeMeshVertexSimple> vertices = CreatePackedVertices(meshes);
+	TArray<int32> faces = CombineTriangleLists(meshes);
 	RuntimeMesh->CreateMeshSection(index, vertices, faces);
 	RuntimeMesh->SetMaterial(index, VertexColorMaterial);
 }
@@ -67,7 +72,7 @@ void AMoleculeMesh::SetCollisionConvexMesh(vector<Mesh> collision_meshes)
 	RuntimeMesh->AddCollisionConvexMesh(collision_mesh);
 }
 
-TArray<FRuntimeMeshVertexSimple> AMoleculeMesh::ExtractSectionVertices(vector<Mesh> meshes)
+TArray<FRuntimeMeshVertexSimple> AMoleculeMesh::CreatePackedVertices(vector<Mesh> meshes)
 {
 	TArray<FRuntimeMeshVertexSimple> vertices;
 	FRuntimeMeshTangent tangent;
@@ -80,7 +85,7 @@ TArray<FRuntimeMeshVertexSimple> AMoleculeMesh::ExtractSectionVertices(vector<Me
 	return vertices;
 }
 
-TArray<int32> AMoleculeMesh::ExtractSectionFaces(vector<Mesh> meshes)
+TArray<int32> AMoleculeMesh::CombineTriangleLists(vector<Mesh> meshes)
 {
 	TArray<int32> triangles;
 	int face_index = 0;
