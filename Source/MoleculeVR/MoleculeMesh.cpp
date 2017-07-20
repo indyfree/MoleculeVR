@@ -2,7 +2,6 @@
 
 #include "MoleculeVR.h"
 #include "MoleculeMesh.h"
-#include "MoleculePicker.h"
 
 /** Constructur settings: Settings to Runtimemesh will be overriden by Blueprints **/
 AMoleculeMesh::AMoleculeMesh()

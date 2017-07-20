@@ -3,16 +3,16 @@
 #pragma once
 
 #include <vector>
-#include "dirent.h" 
+#include "dirent.h"
 
 using namespace std;
 
-class MOLECULEVR_API MoleculePicker
+class MOLECULEVR_API FileFinder
 {
 public:
-	static vector<string> FindMeshesInFolder(string base_dir, string extension);
+	static vector<string> FindFilesInFolder(string base_dir, string extension);
 
-private: 
+private:
 	static vector<string> SearchRekursiveInFolder(string directory, string extension);
 };
 

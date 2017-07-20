@@ -1,22 +1,23 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MoleculeVR.h"
-#include "MoleculePicker.h"
+#include "FileFinder.h"
 
-vector<string> MoleculePicker::FindMeshesInFolder(string base_dir, string extension)
+vector<string> FileFinder::FindFilesInFolder(string base_dir, string extension)
 {
-	vector<string> mol_paths_relative;
+	vector<string> relative_paths;
 	// return relative path from base dir
-	for (string mol_path : SearchRekursiveInFolder(base_dir, extension)) {
-		mol_paths_relative.push_back(mol_path.substr(base_dir.size(), mol_path.size() - base_dir.size()));
+	for (string full_path : SearchRekursiveInFolder(base_dir, extension)) {
+		relative_paths.push_back(full_path.substr(base_dir.size(), full_path.size() - base_dir.size()));
 	}
-	return mol_paths_relative;
+	return relative_paths;
 }
 
 /*
 * Shamelessly taken from https://github.com/paulrehkugler/ExtensionSearch/blob/master/search.cpp
+* All Credits to the Author
 */
-vector<string> MoleculePicker::SearchRekursiveInFolder(string directory, string extension) {
+vector<string> FileFinder::SearchRekursiveInFolder(string directory, string extension) {
 	vector<string> results;
 
 	DIR* dir_point = opendir(directory.c_str());

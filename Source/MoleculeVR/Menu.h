@@ -3,7 +3,7 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
-#include "MoleculePicker.h"
+#include "FileFinder.h"
 #include "Menu.generated.h"
 
 UCLASS()
