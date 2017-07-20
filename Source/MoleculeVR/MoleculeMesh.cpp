@@ -26,7 +26,8 @@ void AMoleculeMesh::BeginPlay()
 	RuntimeMesh->bUseComplexAsSimpleCollision = false;
 }
 
-void AMoleculeMesh::CreateMesh(FString path) {
+void AMoleculeMesh::CreateMesh(FString path)
+{
 	MeshImporter importer(TCHAR_TO_ANSI(*path));
 	vector<Mesh> meshes = importer.GetMeshes();
 	vector<Mesh> molecule_core;
@@ -38,22 +39,25 @@ void AMoleculeMesh::CreateMesh(FString path) {
 	}
 
 	// Create core section
-	TArray<FRuntimeMeshVertexSimple> core_vertices = ExtractSectionVertices(molecule_core);
-	TArray<int32> core_faces = ExtractSectionFaces(molecule_core);
-	RuntimeMesh->CreateMeshSection(0, core_vertices, core_faces);
-	RuntimeMesh->SetMaterial(0, VertexColorMaterial);
+	RenderMeshSection(molecule_core, 0);
 
 	// Create surface section
-	TArray<FRuntimeMeshVertexSimple> sur_vertices = ExtractSectionVertices(molecule_surface);
-	TArray<int32> sur_faces = ExtractSectionFaces(molecule_surface);
-	RuntimeMesh->CreateMeshSection(1, sur_vertices, sur_faces);
-	RuntimeMesh->SetMaterial(1, VertexColorMaterial);
+	RenderMeshSection(molecule_surface, 1);
 
 	// Set surface as collision mesh
 	SetCollisionConvexMesh(molecule_surface);
 }
 
-void AMoleculeMesh::SetCollisionConvexMesh(vector<Mesh> collision_meshes) {
+void AMoleculeMesh::RenderMeshSection(vector<Mesh> meshes, int index)
+{
+	TArray<FRuntimeMeshVertexSimple> vertices = ExtractSectionVertices(meshes);
+	TArray<int32> faces = ExtractSectionFaces(meshes);
+	RuntimeMesh->CreateMeshSection(index, vertices, faces);
+	RuntimeMesh->SetMaterial(index, VertexColorMaterial);
+}
+
+void AMoleculeMesh::SetCollisionConvexMesh(vector<Mesh> collision_meshes)
+{
 	TArray<FVector> collision_mesh;
 	for (Mesh mesh : collision_meshes) {
 		for (FVector vertex : mesh.vertices) {
@@ -63,7 +67,8 @@ void AMoleculeMesh::SetCollisionConvexMesh(vector<Mesh> collision_meshes) {
 	RuntimeMesh->AddCollisionConvexMesh(collision_mesh);
 }
 
-TArray<FRuntimeMeshVertexSimple> AMoleculeMesh::ExtractSectionVertices(vector<Mesh> meshes) {
+TArray<FRuntimeMeshVertexSimple> AMoleculeMesh::ExtractSectionVertices(vector<Mesh> meshes)
+{
 	TArray<FRuntimeMeshVertexSimple> vertices;
 	FRuntimeMeshTangent tangent;
 	
@@ -75,7 +80,8 @@ TArray<FRuntimeMeshVertexSimple> AMoleculeMesh::ExtractSectionVertices(vector<Me
 	return vertices;
 }
 
-TArray<int32> AMoleculeMesh::ExtractSectionFaces(vector<Mesh> meshes) {
+TArray<int32> AMoleculeMesh::ExtractSectionFaces(vector<Mesh> meshes)
+{
 	TArray<int32> triangles;
 	int face_index = 0;
 	
@@ -88,7 +94,8 @@ TArray<int32> AMoleculeMesh::ExtractSectionFaces(vector<Mesh> meshes) {
 	return triangles;
 }
 
-void AMoleculeMesh::SetSimulatePhysics(bool simulate) {
+void AMoleculeMesh::SetSimulatePhysics(bool simulate)
+{
 	RuntimeMesh->SetSimulatePhysics(simulate);
 	RuntimeMesh->SetEnableGravity(simulate);
 }
